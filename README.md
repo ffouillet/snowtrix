@@ -1,4 +1,4 @@
 # snowtrix
-A symfony 4 project  
+A symfony 3.4 project  
 Communautary snowboard tricks website 
 
