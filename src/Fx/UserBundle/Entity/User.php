@@ -4,6 +4,7 @@ namespace Fx\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="users")
@@ -20,8 +21,15 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
+     * @Assert\NotBlank()
      */
     private $username;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -30,6 +38,8 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=254, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -38,9 +48,22 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * Only store the fileName (ex : photo.jpg)
+     * @ORM\Column(name="profile_photo", type="string", length=255)
+     */
+    private $profilePhoto;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles;
+
+
     public function __construct()
     {
         $this->isActive = true;
+        $this->roles = array('ROLE_USER');
     }
 
     public function getId()
@@ -75,7 +98,7 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
     }
 
     public function eraseCredentials()
@@ -106,4 +129,98 @@ class User implements UserInterface, \Serializable
             $this->password
         ) = unserialize($serialized, array('allowed_classes' => false));
     }
-} 
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Set profilePhoto
+     *
+     * @param string $profilePhoto
+     *
+     * @return User
+     */
+    public function setProfilePhoto($profilePhoto)
+    {
+        $this->profilePhoto = $profilePhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get profilePhoto
+     *
+     * @return string
+     */
+    public function getProfilePhoto()
+    {
+        return $this->profilePhoto;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+}

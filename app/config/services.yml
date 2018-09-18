@@ -33,3 +33,6 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+imports:
+- { resource: "@FxUserBundle/Resources/config/services.yml"}

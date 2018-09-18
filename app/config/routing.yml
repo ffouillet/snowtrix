@@ -1,0 +1,3 @@
+security:
+  resource: "@FxUserBundle/Controller/SecurityController.php"
+  type:     annotation
