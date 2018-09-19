@@ -107,7 +107,7 @@ class User implements UserInterface, \Serializable
 
     public function eraseCredentials()
     {
-        
+        $this->plainPassword = null;
     }
 
     public function __toString() {
@@ -245,9 +245,16 @@ class User implements UserInterface, \Serializable
      *
      * @return User
      */
-    public function setPlainPassword($password)
+    public function setPlainPassword($plainPassword)
     {
-        $this->plainPassword = $password;
+        $this->plainPassword = $plainPassword;
+
+        /*
+         * We need to add this line because Doctrine listeners are not called
+         * if Doctrine thinks that an object has not been updated.
+         * A listener will be called in order to encode the password
+         */
+        $this->password = null;
 
         return $this;
     }

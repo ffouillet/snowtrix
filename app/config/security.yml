@@ -19,12 +19,10 @@ security:
             security: false
 
         main:
+            guard:
+                authenticators:
+                    - fx.userbundle.security.login_form_authenticator
             anonymous: ~
-            form_login:
-                login_path: fx_user_login
-                check_path: fx_user_login
-                username_parameter: login[_username]
-                password_parameter: login[_password]
             logout:
                 path:   /logout
                 target: /

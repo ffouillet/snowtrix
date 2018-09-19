@@ -1,7 +1,5 @@
 services:
-#    fx_user.example:
-#        class: Fx\UserBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
     Fx\UserBundle\Controller\:
         resource: '../../Controller'
         public: true
@@ -20,3 +18,15 @@ services:
             - "@router"
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    # Custom authenticator in order to be able to login with username or email
+    fx.userbundle.security.login_form_authenticator:
+        class: Fx\UserBundle\Security\LoginFormAuthenticator
+        autowire: true
+
+    # Hash the user's password when user entity is persisted or updated
+    fx.userbundle.security.hash_password_listener:
+        class: Fx\UserBundle\Doctrine\HashPasswordListener
+        autowire: true
+        tags:
+            - {name: doctrine.event_subscriber }

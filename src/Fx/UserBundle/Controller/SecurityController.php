@@ -20,7 +20,7 @@ class SecurityController extends Controller
     /**
      * @Route("/login", name="fx_user_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -28,9 +28,7 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        $form = $this->createForm(LoginType::class, array('username' => $lastUsername));
-
-        dump($form);
+        $form = $this->createForm(LoginType::class, array('_usernameOrEmail' => $lastUsername));
 
         return $this->render('fx/security/login.html.twig',
             array(
@@ -48,13 +46,13 @@ class SecurityController extends Controller
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Password encoding (also possible to do this via doctrine listener)
-            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
-
-            // Saving the user
+            /*
+            * Password encoding is done with Doctrine Event Listener :
+            * Fx\UserBundle\Security\HashPasswordListener
+            */
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -83,7 +81,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/forgotten-password", name="fx_forgotten_password")
+     * @Route("/forgotten-password", name="fx_user_forgotten_password")
      */
     public function forgottenPasswordAction(Request $request)
     {
@@ -119,8 +117,6 @@ class SecurityController extends Controller
         } else {
             $formResult['success'] = true;
         }
-
-        dump($formResult);
 
         return $formResult;
     }

@@ -7,6 +7,13 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+
+        {% if is_granted('ROLE_USER') %}
+            <li><a href="{{ path('fx_user_logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ path('fx_user_login') }}">Login</a></li>
+        {% endif %}
+
         {% for message in app.flashes('registrationInfo') %}
             <div class="flash-notice">
                 {{ message }}
