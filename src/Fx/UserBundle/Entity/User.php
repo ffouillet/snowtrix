@@ -3,12 +3,16 @@
 namespace Fx\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Fx\UserBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Email déjà utilisé. Merci de choisir une autre adresse email.")
+ * @UniqueEntity(fields="username", message="Nom d'utilisateur déjà utilisé. Merci de choisir un autre nom d'utilisateur.")
  */
 class User implements UserInterface, \Serializable
 {
@@ -50,7 +54,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * Only store the fileName (ex : photo.jpg)
-     * @ORM\Column(name="profile_photo", type="string", length=255)
+     * @ORM\Column(name="profile_photo", type="string", length=255, nullable=true)
      */
     private $profilePhoto;
 
@@ -220,6 +224,30 @@ class User implements UserInterface, \Serializable
     public function setRoles($roles)
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Get plainPassword
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Set plainPassword
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
 
         return $this;
     }

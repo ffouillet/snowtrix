@@ -6,3 +6,17 @@ services:
         resource: '../../Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    # Event listener in order to redirect loggedin users
+    # trying to access following routes :
+    # - fx_user_login
+    # - fx_user_registration
+    # - fx_user_forgotten_password
+    fx.userbundle.eventlister.redirect_user:
+        class: Fx\UserBundle\EventListener\RedirectUserListener
+        arguments:
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+            - "@router"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

@@ -2,6 +2,9 @@
 # https://symfony.com/doc/current/security.html
 security:
 
+    encoders:
+        Fx\UserBundle\Entity\User: bcrypt
+
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         user_db_provider:
@@ -18,8 +21,13 @@ security:
         main:
             anonymous: ~
             form_login:
-                login_path: login
-                check_path: login
+                login_path: fx_user_login
+                check_path: fx_user_login
+                username_parameter: login[_username]
+                password_parameter: login[_password]
+            logout:
+                path:   /logout
+                target: /
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
