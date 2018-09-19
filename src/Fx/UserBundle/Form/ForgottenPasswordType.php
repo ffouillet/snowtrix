@@ -15,6 +15,7 @@ class ForgottenPasswordType extends AbstractType
             ->add('userEmailOrUsername', TextType::class,
                 array('label' => "Nom d'utilisateur ou adresse email",
                     'required' => false,
+                    'error_bubbling' => true,
                     'constraints' => array(
                         new NotBlank(
                             array('message' => "Le nom d'utilisateur ou l'adresse email que vous avez saisi ne correspondent à aucun utilisateur.")))

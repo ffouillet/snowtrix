@@ -9,6 +9,7 @@ use Fx\UserBundle\Form\ForgottenPasswordType;
 use Fx\UserBundle\Form\ResetPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -111,15 +112,15 @@ class SecurityController extends Controller
 
             try {
                 $user = $em->getRepository('FxUserBundle:User')->findOneByUsernameOrEmail($userEmailOrUsername);
+
+                // Send mail with reset password link
+
             } catch (\Exception $e) {
-                $formResult['errors'][] = "Le nom d'utilisateur ou l'adresse email que vous avez saisi ne correspondent à aucun utilisateur.";
+
+                $form->addError(new FormError('Le nom d\'utilisateur ou l\'adresse email que vous avez saisi ne correspondent à aucun utilisateur.'));
+
             }
-
-        } else {
-            $formResult['success'] = true;
         }
-
-        return $formResult;
     }
 
     /**
