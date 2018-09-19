@@ -73,13 +73,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $form->handleRequest($request);
         $data = $form->getData();
 
-        // Vérification CSRF
+        // CSRF valid token check
         $csrfToken = $request->request->get('login')['_token'];
 
-        if (false === $this->csrfTokenManager->isTokenValid(new CsrfToken('authenticate', $csrfToken))) {
+        if (false === $this->csrfTokenManager->isTokenValid(new CsrfToken('csrf_token_login', $csrfToken))) {
             throw new InvalidCsrfTokenException('Jeton CSRF Invalide.');
         }
 
+        // In order to have the login field autofilled with the last username typed
         $request->getSession()->set(
             Security::LAST_USERNAME,
             $data['_usernameOrEmail']
