@@ -9,9 +9,12 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
@@ -37,12 +40,22 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
      */
     private $passwordEncoder;
 
-    public function __construct(FormFactoryInterface $formFactory, EntityManagerInterface $em, RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
+    /**
+     * @var CsrfTokenManagerInterface
+     */
+    private $csrfTokenManager;
+
+    public function __construct(FormFactoryInterface $formFactory,
+                                EntityManagerInterface $em,
+                                RouterInterface $router,
+                                UserPasswordEncoderInterface $passwordEncoder,
+                                CsrfTokenManagerInterface $csrfTokenManager)
     {
         $this->formFactory = $formFactory;
         $this->em = $em;
         $this->router = $router;
         $this->passwordEncoder = $passwordEncoder;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     public function supports(Request $request)
@@ -59,6 +72,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $form = $this->formFactory->create(LoginType::class);
         $form->handleRequest($request);
         $data = $form->getData();
+
+        // Vérification CSRF
+        $csrfToken = $request->request->get('login')['_token'];
+
+        if (false === $this->csrfTokenManager->isTokenValid(new CsrfToken('authenticate', $csrfToken))) {
+            throw new InvalidCsrfTokenException('Jeton CSRF Invalide.');
+        }
 
         $request->getSession()->set(
             Security::LAST_USERNAME,
