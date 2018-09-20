@@ -20,6 +20,7 @@ class UserType extends AbstractType
             ->add('username', TextType::class, array('label' => "Nom d'utilisateur"))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
+                'invalid_message' => 'Le mot de passe et la confirmation du mot de passe doivent être identiques.',
                 'first_options'  => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Confirmation du mot de passe')
             ));

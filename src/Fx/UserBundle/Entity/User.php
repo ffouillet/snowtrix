@@ -31,7 +31,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
+     * @Assert\Length(min=8, max=4096, minMessage="Votre mot de passe doit contenir au moins 8 caractères.")
      */
     private $plainPassword;
 
@@ -39,6 +39,21 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=64)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=40, nullable=true)
+     */
+    private $forgottenPasswordKey;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $forgottenPasswordKeyExpiresAt;
 
     /**
      * @ORM\Column(type="string", length=254, unique=true)
@@ -255,7 +270,81 @@ class User implements UserInterface, \Serializable
          * A listener will be called in order to encode the password
          */
         $this->password = null;
+        $this->forgottenPasswordKey = null;
+        $this->forgottenPasswordKeyExpiresAt = null;
 
         return $this;
+    }
+
+    /**
+     * Set forgottenPasswordKey
+     *
+     * @param string $forgottenPasswordKey
+     *
+     * @return User
+     */
+    public function setForgottenPasswordKey($forgottenPasswordKey)
+    {
+        $this->forgottenPasswordKey = $forgottenPasswordKey;
+
+        return $this;
+    }
+
+    /**
+     * Get forgottenPasswordKey
+     *
+     * @return string
+     */
+    public function getForgottenPasswordKey()
+    {
+        return $this->forgottenPasswordKey;
+    }
+
+    /**
+     * Set forgottenPasswordKeyExpiresAt
+     *
+     * @param \DateTime $forgottenPasswordKeyExpiresAt
+     *
+     * @return User
+     */
+    public function setForgottenPasswordKeyExpiresAt($forgottenPasswordKeyExpiresAt)
+    {
+        $this->forgottenPasswordKeyExpiresAt = $forgottenPasswordKeyExpiresAt;
+
+        return $this;
+    }
+
+    /**
+     * Get forgottenPasswordKeyExpiresAt
+     *
+     * @return \DateTime
+     */
+    public function getForgottenPasswordKeyExpiresAt()
+    {
+        return $this->forgottenPasswordKeyExpiresAt;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

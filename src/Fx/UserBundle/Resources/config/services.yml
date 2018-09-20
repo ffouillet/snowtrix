@@ -25,8 +25,24 @@ services:
         autowire: true
 
     # Hash the user's password when user entity is persisted or updated
-    fx.userbundle.security.hash_password_listener:
+    fx.userbundle.doctrine.hash_password_listener:
         class: Fx\UserBundle\Doctrine\HashPasswordListener
         autowire: true
         tags:
             - {name: doctrine.event_subscriber }
+
+    fx.userbundle.forgotten_password_key_generator:
+        class: Fx\UserBundle\Service\ForgottenPasswordKeyGenerator
+        autowire: true
+
+    # Need to define an alias for the autowiring purpose.
+    # See : https://symfony.com/doc/3.4/service_container/autowiring.html#using-aliases-to-enable-autowiring
+    # Won't work without that
+    Fx\UserBundle\Service\ForgottenPasswordKeyGenerator: '@fx.userbundle.forgotten_password_key_generator'
+
+    fx.userbundle.reset_user_password_url_generator:
+        class : Fx\UserBundle\Service\ResetUserPasswordUrlGenerator
+        autowire: true
+
+    #Alias
+    Fx\UserBundle\Service\ResetUserPasswordUrlGenerator: '@fx.userbundle.reset_user_password_url_generator'

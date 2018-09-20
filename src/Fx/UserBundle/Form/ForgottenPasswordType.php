@@ -14,7 +14,7 @@ class ForgottenPasswordType extends AbstractType
         $builder
             ->add('userEmailOrUsername', TextType::class,
                 array('label' => "Nom d'utilisateur ou adresse email",
-                    'required' => false,
+                    'required' => true,
                     'error_bubbling' => true,
                     'constraints' => array(
                         new NotBlank(
