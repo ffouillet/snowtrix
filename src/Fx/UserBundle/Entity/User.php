@@ -26,6 +26,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      * @Assert\NotBlank()
+     * @Assert\Length(min=3, max=25, minMessage="Votre nom d'utilisateur doit contenir au moins 3 caractères.")
      */
     private $username;
 

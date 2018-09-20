@@ -4,6 +4,7 @@
 
     <h1>Inscription</h1>
     {{ form_start(form) }}
+    {{ form_errors(form) }}
     {{ form_row(form.username) }}
     {{ form_row(form.email) }}
     {{ form_row(form.plainPassword.first) }}

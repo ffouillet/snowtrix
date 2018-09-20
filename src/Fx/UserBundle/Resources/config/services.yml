@@ -2,8 +2,15 @@ services:
 
     Fx\UserBundle\Controller\:
         resource: '../../Controller'
+        autowire: true
         public: true
         tags: ['controller.service_arguments']
+
+    Fx\UserBundle\Form\Handler\:
+        resource: '../../Form/Handler/*'
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
 
     # Event listener in order to redirect loggedin users
     # trying to access following routes :
