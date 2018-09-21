@@ -5,6 +5,7 @@ namespace Fx\UserBundle\Form\Handler;
 use Doctrine\ORM\EntityManagerInterface;
 use Fx\UserBundle\Entity\User;
 use Fx\UserBundle\Service\ForgottenPasswordKeyGenerator;
+use Fx\UserBundle\Service\Mail\ResetPasswordLinkMailSender;
 use Fx\UserBundle\Service\ResetUserPasswordUrlGenerator;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
@@ -21,15 +22,21 @@ class ForgottenPasswordFormHandler extends FormHandler {
      * @var ResetUserPasswordUrlGenerator
      */
     private $resetUserPasswordUrlGenerator;
+    /**
+     * @var ResetPasswordLinkMailSender
+     */
+    private $resetPasswordLinkMailSender;
 
     public function __construct(EntityManagerInterface $em, SessionInterface $session,
                                 ForgottenPasswordKeyGenerator $forgottenPasswordKeyGenerator,
-                                ResetUserPasswordUrlGenerator $resetUserPasswordUrlGenerator)
+                                ResetUserPasswordUrlGenerator $resetUserPasswordUrlGenerator,
+                                ResetPasswordLinkMailSender $resetPasswordLinkMailSender)
     {
         parent::__construct($em, $session);
 
         $this->forgottenPasswordKeyGenerator = $forgottenPasswordKeyGenerator;
         $this->resetUserPasswordUrlGenerator = $resetUserPasswordUrlGenerator;
+        $this->resetPasswordLinkMailSender = $resetPasswordLinkMailSender;
     }
 
     public function handle(Request $request, Form $form)
@@ -77,12 +84,12 @@ class ForgottenPasswordFormHandler extends FormHandler {
                 vous recevrez un email concernant les instructions de réinitialisation de votre mot de passe dans quelques instants.'
             );
 
-            $url = $this->resetUserPasswordUrlGenerator->generateResetPasswordUrl($user);
+            $resetPasswordUrl = $this->resetUserPasswordUrlGenerator->generateResetPasswordUrl($user);
 
-            // Send mail with reset password link
+            $this->resetPasswordLinkMailSender->sendMail($user, $resetPasswordUrl);
 
-            return false;
-
+            return true;
         }
     }
 }
+

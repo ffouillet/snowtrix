@@ -26,12 +26,22 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      * @Assert\NotBlank()
-     * @Assert\Length(min=3, max=25, minMessage="Votre nom d'utilisateur doit contenir au moins 3 caractères.")
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-z0-9]+$/",
+     *     message="Votre nom d'utilisateur ne peut contenir que des lettres non accentuées, des chiffres ou les caractères suivants : -_."
+     * )
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage="Votre nom d'utilisateur doit contenir au moins 3 caractères.",
+     *     max=25,
+     *     maxMessage="Votre nom d'utilisateur ne peut pas contenir plus de 25 caractères"
+     * )
+     *
      */
     private $username;
 
     /**
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"registration"})
      * @Assert\Length(min=8, max=4096, minMessage="Votre mot de passe doit contenir au moins 8 caractères.")
      */
     private $plainPassword;
@@ -69,10 +79,26 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
-     * Only store the fileName (ex : photo.jpg)
-     * @ORM\Column(name="profile_photo", type="string", length=255, nullable=true)
+     * Only used for the FileUpload of the UserEditType
+     * Avatar will always be stored the same way.
+     * Check the method : getAvatarRootPath()
+     *
+     * @ORM\Column(type="string", length=30, nullable=true)
+     *
+     * @Assert\Image(
+     *     mimeTypes={"image/jpeg", "image/png"},
+     *     mimeTypesMessage="Format d'image incorrect, merci d'utiliser les formats d'images suivants : .png, .jpg",
+     *     minWidth=75, minWidthMessage="La largeur de votre photo de profil ne peut être inférieure à 75px",
+     *     maxWidth=150, maxWidthMessage="La largeur de votre photo de profil ne peut être supérieure à 150px",
+     *     minHeight=75, minHeightMessage="La hauteur de votre photo de profil ne peut être inférieure à 75px",
+     *     maxHeight=150, maxHeightMessage="La hauteur de votre photo de profil ne peut être supérieure à 150px")
      */
-    private $profilePhoto;
+    private $avatarFileName;
+
+    /**
+     * Is fulfilled by Fx\UserBundle\Doctrine\User\AvatarUrlListener;
+     */
+    private $avatarWebUrl;
 
     /**
      * @ORM\Column(type="array")
@@ -207,30 +233,6 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set profilePhoto
-     *
-     * @param string $profilePhoto
-     *
-     * @return User
-     */
-    public function setProfilePhoto($profilePhoto)
-    {
-        $this->profilePhoto = $profilePhoto;
-
-        return $this;
-    }
-
-    /**
-     * Get profilePhoto
-     *
-     * @return string
-     */
-    public function getProfilePhoto()
-    {
-        return $this->profilePhoto;
-    }
-
-    /**
      * Set roles
      *
      * @param array $roles
@@ -347,5 +349,54 @@ class User implements UserInterface, \Serializable
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+
+    /**
+     * Set avatarFileName
+     *
+     * @param string $avatarFileName
+     *
+     * @return User
+     */
+    public function setAvatarFileName($avatarFileName)
+    {
+        $this->avatarFileName = $avatarFileName;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarFileName
+     *
+     * @return string
+     */
+    public function getAvatarFileName()
+    {
+        return $this->avatarFileName;
+    }
+
+    /**
+     * Set avatarWebUrl
+     *
+     * @param string $avatarWebUrl
+     *
+     * @return User
+     */
+    public function setAvatarWebUrl($avatarWebUrl)
+    {
+        $this->avatarWebUrl = $avatarWebUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get avatarWebUrl
+     *
+     * @return string
+     */
+    public function getAvatarWebUrl()
+    {
+        return $this->avatarWebUrl;
     }
 }

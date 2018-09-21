@@ -4,6 +4,7 @@ namespace Fx\UserBundle\Form\Handler;
 
 use Fx\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 
 class RegisterFormHandler extends FormHandler {
 

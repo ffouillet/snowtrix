@@ -1,6 +1,6 @@
 <?php
 
-namespace Fx\UserBundle\Doctrine;
+namespace Fx\UserBundle\Doctrine\User;
 
 use Fx\UserBundle\Entity\User;
 use Doctrine\Common\EventSubscriber;

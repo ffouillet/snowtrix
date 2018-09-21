@@ -31,12 +31,13 @@ class ResetUserPasswordUrlGenerator {
 
         $userId = $user->getId();
 
-        $route = $this->router->generate(self::RESET_PASSWORD_ROUTE,
+        $resetPasswordUrl = $this->router->generate(self::RESET_PASSWORD_ROUTE,
             array('forgottenPasswordKey' => $userForgottenPasswordKey,
                 'userId' => $userId),
             UrlGeneratorInterface::ABSOLUTE_URL);
 
-        dump($route);
+
+        return $resetPasswordUrl;
 
     }
 }

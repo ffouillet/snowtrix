@@ -49,7 +49,6 @@ class ForgottenPasswordKeyGenerator {
                 return [ 'error' => true, 'success' => false, 'errorMessage' => $errorMessage];
 
             }
-
         }
 
         return [ 'success' => true, 'error' => false];

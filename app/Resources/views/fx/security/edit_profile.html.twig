@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Modification de votre profil</h1>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.avatarFileName) }}
+
+    <span>Changer mon mot de passe :</span><br/>
+    {{ form_row(form.plainPassword.first) }}
+    {{ form_row(form.plainPassword.second) }}
+
+    <button type="submit">Inscription</button>
+    {{ form_end(form) }}
+{% endblock %}

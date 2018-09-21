@@ -2,18 +2,19 @@
 
 namespace Fx\UserBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Fx\UserBundle\Entity\User;
+use Fx\UserBundle\Form\Handler\EditProfileFormHandler;
 use Fx\UserBundle\Form\Handler\ForgottenPasswordFormHandler;
 use Fx\UserBundle\Form\Handler\RegisterFormHandler;
 use Fx\UserBundle\Form\Handler\ResetPasswordFormHandler;
 use Fx\UserBundle\Form\LoginType;
 use Fx\UserBundle\Form\UserType;
+use Fx\UserBundle\Form\UserEditType;
 use Fx\UserBundle\Form\ForgottenPasswordType;
 use Fx\UserBundle\Form\ResetPasswordType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -124,6 +125,24 @@ class SecurityController extends Controller
         }
 
         return $this->render('fx/security/reset_password.html.twig',
+            array('form' => $form->createView()));
+
+    }
+
+    /**
+     * @Route("/edit-profile", name="fx_user_edit_profile")
+     * @Security("is_granted('ROLE_USER')")
+     * @param Request $request
+     */
+    public function editProfileAction(Request $request, EditProfileFormHandler $editProfileFormHandler) {
+
+        $currentUser = $this->getUser();
+
+        $form = $this->createForm(UserEditType::class, $currentUser);
+
+        $editProfileFormHandler->handle($request, $form, $currentUser);
+
+        return $this->render('fx/security/edit_profile.html.twig',
             array('form' => $form->createView()));
 
     }
