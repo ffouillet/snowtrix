@@ -1,6 +1,6 @@
-st_tricks:
-    resource: "@STTricksBundle/Resources/config/routing.yml"
-    prefix:   /
+snowtrix_tricksgroups:
+    resource: "@STTricksBundle/Controller/TricksGroupsController.php"
+    type:     annotation
 
 security:
   resource: "@FxUserBundle/Controller/SecurityController.php"

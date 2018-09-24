@@ -1,3 +1,0 @@
-st_tricks_homepage:
-    path:     /
-    defaults: { _controller: STTricksBundle:Default:index }
