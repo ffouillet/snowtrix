@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 
 /**
@@ -41,10 +42,25 @@ class User implements UserInterface, \Serializable
     private $username;
 
     /**
-     * @Assert\NotBlank(groups={"registration"})
-     * @Assert\Length(min=8, max=4096, minMessage="Votre mot de passe doit contenir au moins 8 caractères.")
+     * @Assert\NotBlank(
+     *     groups={"registration"},
+     *     message="Votre mot de passe ne doit pas être vide."
+     * )
+     * @Assert\Length(
+     *     groups={"registration"},
+     *     min=8,
+     *     minMessage="Votre mot de passe doit contenir au moins 8 caractères.",
+     *     max=4096,
+     * )
+     * @Assert\Length(
+     *     groups={"change_password"},
+     *     min=8,
+     *     minMessage="Votre nouveau mot de passe doit contenir au moins 8 caractères.",
+     *     max=4096,
+     * )
      */
     private $plainPassword;
+
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -93,10 +109,11 @@ class User implements UserInterface, \Serializable
      *     minHeight=75, minHeightMessage="La hauteur de votre photo de profil ne peut être inférieure à 75px",
      *     maxHeight=150, maxHeightMessage="La hauteur de votre photo de profil ne peut être supérieure à 150px")
      */
-    private $avatarFileName;
+    private $avatar;
 
     /**
-     * Is fulfilled by Fx\UserBundle\Doctrine\User\AvatarUrlListener;
+     * Is fulfilled by Fx\UserBundle\Doctrine\User\AvatarUploadListener;
+     * (If avatar exists)
      */
     private $avatarWebUrl;
 
@@ -109,6 +126,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
+        $this->createdAt = new \DateTime();
         $this->roles = array('ROLE_USER');
     }
 
@@ -150,10 +168,6 @@ class User implements UserInterface, \Serializable
     public function eraseCredentials()
     {
         $this->plainPassword = null;
-    }
-
-    public function __toString() {
-        return $this->username;
     }
 
     /** @see \Serializable::serialize() */
@@ -351,31 +365,6 @@ class User implements UserInterface, \Serializable
         return $this->createdAt;
     }
 
-
-    /**
-     * Set avatarFileName
-     *
-     * @param string $avatarFileName
-     *
-     * @return User
-     */
-    public function setAvatarFileName($avatarFileName)
-    {
-        $this->avatarFileName = $avatarFileName;
-
-        return $this;
-    }
-
-    /**
-     * Get avatarFileName
-     *
-     * @return string
-     */
-    public function getAvatarFileName()
-    {
-        return $this->avatarFileName;
-    }
-
     /**
      * Set avatarWebUrl
      *
@@ -398,5 +387,29 @@ class User implements UserInterface, \Serializable
     public function getAvatarWebUrl()
     {
         return $this->avatarWebUrl;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

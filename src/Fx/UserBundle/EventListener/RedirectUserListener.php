@@ -75,8 +75,6 @@ class RedirectUserListener
         return false;
     }
 
-
-
     private function isAuthenticatedUserOnAnonymousPage($currentRoute)
     {
         return in_array(

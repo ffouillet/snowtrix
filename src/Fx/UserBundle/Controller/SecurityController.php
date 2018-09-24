@@ -4,11 +4,14 @@ namespace Fx\UserBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Fx\UserBundle\Entity\User;
+use Fx\UserBundle\Form\ChangePasswordType;
+use Fx\UserBundle\Form\Handler\ChangePasswordFormHandler;
 use Fx\UserBundle\Form\Handler\EditProfileFormHandler;
 use Fx\UserBundle\Form\Handler\ForgottenPasswordFormHandler;
 use Fx\UserBundle\Form\Handler\RegisterFormHandler;
 use Fx\UserBundle\Form\Handler\ResetPasswordFormHandler;
 use Fx\UserBundle\Form\LoginType;
+use Fx\UserBundle\Form\UserProfileEditType;
 use Fx\UserBundle\Form\UserType;
 use Fx\UserBundle\Form\UserEditType;
 use Fx\UserBundle\Form\ForgottenPasswordType;
@@ -134,16 +137,20 @@ class SecurityController extends Controller
      * @Security("is_granted('ROLE_USER')")
      * @param Request $request
      */
-    public function editProfileAction(Request $request, EditProfileFormHandler $editProfileFormHandler) {
+    public function editProfileAction(Request $request, EditProfileFormHandler $editProfileFormHandler, ChangePasswordFormHandler $changePasswordFormHandler) {
 
         $currentUser = $this->getUser();
 
-        $form = $this->createForm(UserEditType::class, $currentUser);
+        $editProfileForm = $this->createForm(UserProfileEditType::class, $currentUser);
+        $editProfileFormHandler->handle($request, $editProfileForm, $currentUser);
 
-        $editProfileFormHandler->handle($request, $form, $currentUser);
+        $changePasswordForm = $this->createForm(ChangePasswordType::class, $currentUser);
+        $changePasswordFormHandler->handle($request, $changePasswordForm, $currentUser);
 
         return $this->render('fx/security/edit_profile.html.twig',
-            array('form' => $form->createView()));
+            array('editProfileForm' => $editProfileForm->createView(),
+                'changePasswordForm' => $changePasswordForm->createView()
+            ));
 
     }
 
