@@ -69,3 +69,4 @@ class HashPasswordListener implements EventSubscriber
     }
 
 }
+
