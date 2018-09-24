@@ -2,11 +2,30 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}SnowTrix !{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+
+        {% if is_granted('ROLE_USER') %}
+            <p><a href="{{ path('fx_user_logout') }}">Logout</a></p>
+        {% else %}
+            <p><a href="{{ path('fx_user_login') }}">Login</a></p>
+        {% endif %}
+
+        {% for message in app.flashes('actionInfoError') %}
+            <div class="flash-notice flash-notice-error">
+                {{ message | raw }}
+            </div>
+        {% endfor %}
+
+        {% for message in app.flashes('actionInfoSuccess') %}
+            <div class="flash-notice flash-notice-success">
+                {{ message | raw }}
+            </div>
+        {% endfor %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

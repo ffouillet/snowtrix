@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle;
+namespace Fx\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
+class FxUserBundle extends Bundle
 {
 }

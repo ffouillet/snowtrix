@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Modification de votre profil</h1>
+
+    <h2>Photo de profil : </h2>
+
+    {{ form_start(editProfileForm) }}
+    {{ form_errors(editProfileForm) }}
+
+    {% if app.user.avatarWebUrl is not null %}
+        <img src="{{ asset(app.user.avatarWebUrl) }}" alt="Avatar de {{ app.user.username }}"/>
+    {% else %}
+        <img src="{{ user_default_avatar_src }}" alt="Avatar de {{ app.user.username }}"/>
+    {% endif %}
+
+    {{ form_row(editProfileForm.avatar) }}
+
+    <button type="submit">Modifier le profil</button>
+    {{ form_end(editProfileForm) }}
+
+    <h2>Sécurité</h2>
+    <h3>Changer mon mot de passe</h3>
+
+    {{ form_start(changePasswordForm) }}
+    {{ form_errors(changePasswordForm) }}
+
+    {{ form_row(changePasswordForm.currentPlainPassword) }}
+    {{ form_row(changePasswordForm.plainPassword.first) }}
+    {{ form_row(changePasswordForm.plainPassword.second) }}
+
+    <button type="submit">Modifier mon mot de passe</button>
+    {{ form_end(changePasswordForm) }}
+{% endblock %}

@@ -17,3 +17,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    user_avatar_web_dir: '/web/uploads/users_avatar'
+    user_avatar_upload_dir: '%kernel.project_dir%%user_avatar_web_dir%'
+    user_avatar_default_avatar_filename: default-avatar.png
