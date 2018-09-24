@@ -1,3 +1,7 @@
+st_tricks:
+    resource: "@STTricksBundle/Resources/config/routing.yml"
+    prefix:   /
+
 security:
   resource: "@FxUserBundle/Controller/SecurityController.php"
   type:     annotation
