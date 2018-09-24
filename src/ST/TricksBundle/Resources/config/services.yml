@@ -4,3 +4,6 @@ services:
         autowire: true
         public: true
         tags: ['controller.service_arguments']
+
+    ST\TricksBundle\DataFixtures\TrickAndTrickGroupFixtures:
+        tags: [doctrine.fixture.orm]
