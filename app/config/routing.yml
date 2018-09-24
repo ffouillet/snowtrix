@@ -1,3 +1,7 @@
+snowtrix_tricksgroups:
+    resource: "@STTricksBundle/Controller/TricksGroupsController.php"
+    type:     annotation
+
 security:
   resource: "@FxUserBundle/Controller/SecurityController.php"
   type:     annotation
