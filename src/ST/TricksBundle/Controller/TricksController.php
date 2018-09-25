@@ -3,10 +3,11 @@
 namespace ST\TricksBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use ST\TricksBundle\Entity\Trick;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TricksGroupsController extends Controller
+class TricksController extends Controller
 {
     /**
      * @var EntityManagerInterface
@@ -19,14 +20,11 @@ class TricksGroupsController extends Controller
     }
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/trick/{slug}", name="trick_view")
      */
-    public function indexAction()
+    public function viewAction(Trick $trick)
     {
-        // Get all tricks groups and associated tricks.
-        $tricksGroups = $this->em->getRepository('STTricksBundle:TrickGroup')->findAllWithRelations('tricks');
-
-        return $this->render('snowtrix/index.html.twig',
-            ['tricksGroups' => $tricksGroups]);
+        return $this->render('snowtrix/tricks/view.html.twig',
+            ['trick' => $trick]);
     }
 }

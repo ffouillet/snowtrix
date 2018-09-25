@@ -77,5 +77,7 @@ services:
             - '%user_avatar_web_dir%'
     Fx\UserBundle\Service\UserAvatarUploader: '@fx.userbundle.user_avatar_uploader'
 
-
+    #Fixtures
+    Fx\UserBundle\DataFixtures\UserFixtures:
+        tags: [doctrine.fixture.orm]
 

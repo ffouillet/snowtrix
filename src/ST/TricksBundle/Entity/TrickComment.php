@@ -41,6 +41,12 @@ class TrickComment
      */
     private $trick;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Fx\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -126,5 +132,29 @@ class TrickComment
     public function getTrick()
     {
         return $this->trick;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Fx\UserBundle\Entity\User $user
+     *
+     * @return TrickComment
+     */
+    public function setUser(\Fx\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Fx\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

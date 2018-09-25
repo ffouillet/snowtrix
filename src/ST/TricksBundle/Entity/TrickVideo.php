@@ -29,7 +29,7 @@ class TrickVideo
     private $embedCode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ST\TricksBundle\Entity\Trick", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="ST\TricksBundle\Entity\Trick", inversedBy="videos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;

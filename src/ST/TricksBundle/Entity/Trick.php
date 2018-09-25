@@ -57,6 +57,18 @@ class Trick
     private $updatedAt;
 
     /**
+     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickPhoto", mappedBy="trick")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $photos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickVideo", mappedBy="trick")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $videos;
+
+    /**
      * @ORM\ManyToMany(targetEntity="ST\TricksBundle\Entity\TrickGroup", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -208,6 +220,8 @@ class Trick
     {
         $this->groups[] = $group;
 
+        $group->addTrick($this);
+
         return $this;
     }
 
@@ -229,5 +243,87 @@ class Trick
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    /**
+     * Set photos
+     *
+     * @param \ST\TricksBundle\Entity\TrickPhoto $photos
+     *
+     * @return Trick
+     */
+    public function setPhotos(\ST\TricksBundle\Entity\TrickPhoto $photos)
+    {
+        $this->photos = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \ST\TricksBundle\Entity\TrickPhoto
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * Add photo
+     *
+     * @param \ST\TricksBundle\Entity\TrickPhoto $photo
+     *
+     * @return Trick
+     */
+    public function addPhoto(\ST\TricksBundle\Entity\TrickPhoto $photo)
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \ST\TricksBundle\Entity\TrickPhoto $photo
+     */
+    public function removePhoto(\ST\TricksBundle\Entity\TrickPhoto $photo)
+    {
+        $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Add video
+     *
+     * @param \ST\TricksBundle\Entity\TrickVideo $video
+     *
+     * @return Trick
+     */
+    public function addVideo(\ST\TricksBundle\Entity\TrickVideo $video)
+    {
+        $this->videos[] = $video;
+
+        return $this;
+    }
+
+    /**
+     * Remove video
+     *
+     * @param \ST\TricksBundle\Entity\TrickVideo $video
+     */
+    public function removeVideo(\ST\TricksBundle\Entity\TrickVideo $video)
+    {
+        $this->videos->removeElement($video);
+    }
+
+    /**
+     * Get videos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVideos()
+    {
+        return $this->videos;
     }
 }

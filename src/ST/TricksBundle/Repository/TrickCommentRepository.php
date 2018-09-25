@@ -2,6 +2,9 @@
 
 namespace ST\TricksBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use ST\TricksBundle\Entity\Trick;
+
 /**
  * TrickCommentRepository
  *
@@ -10,4 +13,23 @@ namespace ST\TricksBundle\Repository;
  */
 class TrickCommentRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findAllByTrickPaginated(Trick $trick, $page, $nbPerPage) {
+
+        $qb = $this->createQueryBuilder('tc');
+        $qb->select('tc');
+        $qb->where('tc.trick = :trick');
+        $qb->setParameter('trick', $trick);
+
+        $qb->orderBy('tc.createdAt', 'DESC');
+
+        $query = $qb->getQuery();
+
+        // Pagination
+        $query->setFirstResult(($page - 1) * $nbPerPage); // Define Comment at which the list starts
+        $query->setMaxResults($nbPerPage);
+
+        return new Paginator($query, true);
+
+    }
 }

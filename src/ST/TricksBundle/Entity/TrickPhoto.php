@@ -29,7 +29,7 @@ class TrickPhoto
     private $photo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ST\TricksBundle\Entity\Trick", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="ST\TricksBundle\Entity\Trick", inversedBy="photos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;

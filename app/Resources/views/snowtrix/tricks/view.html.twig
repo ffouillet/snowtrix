@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ trick.name }}</h1>
+
+    {# Photos #}
+    <section class="trick-photos">
+        <h2>Photos :</h2>
+        {% if trick.photos is not empty %}
+            <ul>
+                {% for photo in trick.photos %}
+                    <img src="#" alt="Une photo de la figure {{ trick.name }}">
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucune photo de cette figure à afficher pour le moment.</p>
+        {% endif %}
+    </section>
+
+    {# Videos#}
+    <section class="trick-videos">
+        <h2>Videos : </h2>
+        {% if trick.videos is not empty %}
+            <ul>
+                {% for video in trick.videos %}
+                    {{ video.embedCode | raw }}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucune vidéo de cette figure pour le moment.</p>
+        {% endif %}
+    </section>
+
+    {# Description #}
+    <section class="trick-infos">
+        <h2>Informations : </h2>
+        <ul>
+            <li>Type(s) de figure : {% for trickGroup in trick.groups %}{{ trickGroup.name }}{% endfor %}</li>
+            <li>Date de création : {{ trick.createdAt |date("d/m/Y", "Europe/Paris") }}</li>
+            <li>Dernière mise à jour :
+                {% if trick.updatedAt is not null %}
+                    {{ trick.updatedAt |date("d/m/Y", "Europe/Paris") }}
+                {% else %}
+                    Aucune modification
+                {%  endif %}
+            </li>
+        </ul>
+    </section>
+
+    {# Commentaires #}
+    <section class="trick-comments">
+        <h2>Commentaires : </h2>
+        <div class="trick-add-comment">
+
+        </div>
+        <div class="trick-comments-list">
+            {{ render(controller(
+                'ST\\TricksBundle\\Controller\\TricksCommentsController::listAction',
+                { 'trick': trick }
+            )) }}
+        </div>
+    </section>
+{% endblock %}

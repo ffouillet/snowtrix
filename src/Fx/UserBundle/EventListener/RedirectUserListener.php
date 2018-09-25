@@ -39,7 +39,7 @@ class RedirectUserListener
 
                 if ($this->isAuthenticatedUserOnAnonymousPage($currentRoute)) {
 
-                    $response = new RedirectResponse($this->router->generate('st_home'));
+                    $response = new RedirectResponse($this->router->generate('homepage'));
                     $event->setResponse($response);
                 }
             }
