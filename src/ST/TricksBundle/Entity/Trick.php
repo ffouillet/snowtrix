@@ -2,7 +2,9 @@
 
 namespace ST\TricksBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trick
@@ -25,6 +27,13 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=2,
+     *     minMessage="Le nom de la figure doit contenir au moins 2 caractères.",
+     *     max=50,
+     *     maxMessage="La description de la figure ne peut pas contenir plus de 50 caractères."
+     * )
      */
     private $name;
 
@@ -39,6 +48,13 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     min=3,
+     *     minMessage="La description de la figure doit contenir au moins 20 caractères.",
+     *     max=1000,
+     *     maxMessage="la description de la figure ne peut pas contenir plus de 1000 caractères."
+     * )
      */
     private $description;
 
@@ -57,14 +73,16 @@ class Trick
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickPhoto", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickPhoto", mappedBy="trick", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickVideo", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickVideo", mappedBy="trick", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\Valid()
      */
     private $videos;
 
@@ -74,9 +92,18 @@ class Trick
      */
     private $groups;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickComment", mappedBy="trick")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $comments;
+
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->photos = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     /**
@@ -248,11 +275,11 @@ class Trick
     /**
      * Set photos
      *
-     * @param \ST\TricksBundle\Entity\TrickPhoto $photos
+     * @param TrickPhoto $photos
      *
      * @return Trick
      */
-    public function setPhotos(\ST\TricksBundle\Entity\TrickPhoto $photos)
+    public function setPhotos(TrickPhoto $photos)
     {
         $this->photos = $photos;
 
@@ -262,35 +289,11 @@ class Trick
     /**
      * Get photos
      *
-     * @return \ST\TricksBundle\Entity\TrickPhoto
+     * @return TrickPhoto
      */
     public function getPhotos()
     {
         return $this->photos;
-    }
-
-    /**
-     * Add photo
-     *
-     * @param \ST\TricksBundle\Entity\TrickPhoto $photo
-     *
-     * @return Trick
-     */
-    public function addPhoto(\ST\TricksBundle\Entity\TrickPhoto $photo)
-    {
-        $this->photos[] = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Remove photo
-     *
-     * @param \ST\TricksBundle\Entity\TrickPhoto $photo
-     */
-    public function removePhoto(\ST\TricksBundle\Entity\TrickPhoto $photo)
-    {
-        $this->photos->removeElement($photo);
     }
 
     /**
@@ -325,5 +328,69 @@ class Trick
     public function getVideos()
     {
         return $this->videos;
+    }
+
+    /**
+     * Add comment.
+     *
+     * @param \ST\TricksBundle\Entity\TrickComment $comment
+     *
+     * @return Trick
+     */
+    public function addComment(\ST\TricksBundle\Entity\TrickComment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment.
+     *
+     * @param \ST\TricksBundle\Entity\TrickComment $comment
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeComment(\ST\TricksBundle\Entity\TrickComment $comment)
+    {
+        return $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add photo.
+     *
+     * @param TrickPhoto $photo
+     *
+     * @return Trick
+     */
+    public function addPhoto(TrickPhoto $photo)
+    {
+        $photo->setTrick($this);
+
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo.
+     *
+     * @param TrickPhoto $photo
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePhoto(TrickPhoto $photo)
+    {
+        return $this->photos->removeElement($photo);
     }
 }

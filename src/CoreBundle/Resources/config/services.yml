@@ -1,0 +1,17 @@
+services:
+#    core.example:
+#        class: CoreBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    CoreBundle\Form\Handler\:
+        resource: '../../Form/Handler/*'
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+
+    CoreBundle\Service\:
+        resource: '../../Service/*'
+        exclude: '../../Service/FileUploader.php'
+        autowire: true
+        autoconfigure: true
+
+

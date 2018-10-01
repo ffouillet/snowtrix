@@ -20,8 +20,12 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
 
-    user_avatar_web_dir: '/web/uploads/users_avatar'
-    user_avatar_upload_dir: '%kernel.project_dir%%user_avatar_web_dir%'
+    user_avatar_web_dir: 'uploads/users_avatar'
+    user_avatar_upload_dir: '%kernel.project_dir%/web/%user_avatar_web_dir%'
     user_avatar_default_avatar_filename: default-avatar.png
+
+    trick_photos_web_dir: /uploads/tricks/photos
+    trick_photos_upload_dir: '%kernel.project_dir%/web/%user_avatar_web_dir%'
+    trick_photos_default_filename: trick-photo.png
 
     homepage_route_name: snowtrix_home

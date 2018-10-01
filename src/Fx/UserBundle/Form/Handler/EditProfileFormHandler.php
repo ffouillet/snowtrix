@@ -23,7 +23,7 @@ class EditProfileFormHandler extends FormHandler {
         $this->userAvatarUploader = $userAvatarUploader;
     }
 
-    public function handle(Request $request, Form $form, User $user) {
+    public function handle(Request $request, Form $form) {
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {

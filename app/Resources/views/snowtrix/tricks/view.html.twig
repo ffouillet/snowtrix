@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% for message in app.flashes('addComment') %}
+        <div class="alert alert-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <h1>{{ trick.name }}</h1>
 
     {# Photos #}
@@ -8,8 +15,8 @@
         <h2>Photos :</h2>
         {% if trick.photos is not empty %}
             <ul>
-                {% for photo in trick.photos %}
-                    <img src="#" alt="Une photo de la figure {{ trick.name }}">
+                {% for trickPhoto in trick.photos %}
+                    <img src="{{ asset(trickPhoto.photoUrl) }}" alt="Une photo de la figure {{ trick.name }}">
                 {% endfor %}
             </ul>
         {% else %}
@@ -35,13 +42,22 @@
     <section class="trick-infos">
         <h2>Informations : </h2>
         <ul>
-            <li>Type(s) de figure : {% for trickGroup in trick.groups %}{{ trickGroup.name }}{% endfor %}</li>
+            <li>Type(s) de figure :
+                {% if trick.groups is not empty %}
+                    {% for trickGroup in trick.groups %}
+                       {{trickGroup.name}}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                {% else %}
+                    Cette figure n'a pas de type particulier.
+                {% endif %}
+
+            </li>
             <li>Date de création : {{ trick.createdAt |date("d/m/Y", "Europe/Paris") }}</li>
             <li>Dernière mise à jour :
                 {% if trick.updatedAt is not null %}
                     {{ trick.updatedAt |date("d/m/Y", "Europe/Paris") }}
                 {% else %}
-                    Aucune modification
+                    Aucune modifications.
                 {%  endif %}
             </li>
         </ul>
@@ -51,13 +67,10 @@
     <section class="trick-comments">
         <h2>Commentaires : </h2>
         <div class="trick-add-comment">
-
+            {%  include 'default/comments/form.html.twig' %}
         </div>
         <div class="trick-comments-list">
-            {{ render(controller(
-                'ST\\TricksBundle\\Controller\\TricksCommentsController::listAction',
-                { 'trick': trick }
-            )) }}
+            {%  include 'snowtrix/tricks/comments/list.html.twig' %}
         </div>
     </section>
 {% endblock %}

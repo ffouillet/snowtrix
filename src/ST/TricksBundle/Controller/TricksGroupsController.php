@@ -24,7 +24,7 @@ class TricksGroupsController extends Controller
     public function indexAction()
     {
         // Get all tricks groups and associated tricks.
-        $tricksGroups = $this->em->getRepository('STTricksBundle:TrickGroup')->findAllWithRelations('tricks');
+        $tricksGroups = $this->em->getRepository('STTricksBundle:TrickGroup')->findAllWithTricks();
 
         return $this->render('snowtrix/index.html.twig',
             ['tricksGroups' => $tricksGroups]);

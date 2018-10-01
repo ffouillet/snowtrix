@@ -8,7 +8,7 @@
     <h3>Liste des figures de snowboard</h3>
     {% if tricksGroups is not empty %}
         {% for trickGroup in tricksGroups %}
-            <h4>{{ trickGroup.name }} : </h4>
+            <h4>{{ trickGroup.name }}s : </h4>
             {% if trickGroup.tricks is not empty %}
                 <ul class="trick-group-list">
                     {% for trick in trickGroup.tricks %}

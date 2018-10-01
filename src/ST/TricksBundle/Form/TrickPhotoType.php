@@ -2,27 +2,29 @@
 
 namespace ST\TricksBundle\Form;
 
-use Doctrine\DBAL\Types\TextType;
-use ST\TricksBundle\Entity\TrickComment;
+use ST\TricksBundle\Entity\TrickPhoto;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TrickCommentType extends AbstractType
+class TrickPhotoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', TextType::class,
-                ['required' => true])
+            ->add('photo', FileType::class,
+                ['required' => true,
+                    'label' => false,
+                    'error_bubbling' => true])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => TrickComment::class,
+            'data_class' => TrickPhoto::class,
         ));
     }
+
 }

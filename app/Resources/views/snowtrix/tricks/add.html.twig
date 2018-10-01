@@ -1,0 +1,70 @@
+{% macro trick_photo_prototype(trickPhotoForm) %}
+    {{ form_widget(trickPhotoForm) }}
+{% endmacro %}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for message in app.flashes('addTrick') %}
+        <div class="alert alert-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h1>Ajouter une nouvelle figure </h1>
+
+    {{ form_start(trickForm) }}
+    {{ form_errors(trickForm) }}
+
+    {{ form_row(trickForm.name) }}
+    {{ form_row(trickForm.description) }}
+
+    {# Groupes #}
+    <div>
+        {{ form_row(trickForm.groups) }}
+    </div>
+
+    {# Photos #}
+    <div>
+        {{ form_errors(trickForm.photos) }}
+        {{ form_label(trickForm.photos) }}
+
+        <ul>
+            <li>Formats acceptés : .jpg, .png</li>
+            <li>Largeur maximum : 1920px</li>
+            <li>Largeur minimum : 1080px</li>
+        </ul>
+
+        <ul class="trick-relation-collection" id="trick-photos" data-prototype="{{ _self.trick_photo_prototype(trickForm.photos.vars.prototype)|e('html_attr') }}">
+
+            {% for trickPhoto in trickForm.photos %}
+                <li>
+                    {{ form_widget(trickPhoto) }}
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+
+    {# Videos #}
+    <div>
+        {{ form_errors(trickForm.videos) }}
+        {{ form_label(trickForm.videos) }}
+        <ul>
+            <li>Format de vidéos embarqués acceptés : Youtube<br/>
+            <a target="_blank" href="https://support.google.com/youtube/answer/171780?hl=fr">Comment intégrer une vidéo Youtube ?</a></li>
+        </ul>
+        <ul class="trick-relation-collection" id="trick-videos" data-prototype="{{ _self.trick_photo_prototype(trickForm.videos.vars.prototype)|e('html_attr') }}">
+        </ul>
+    </div>
+
+    {# Don't use form_end here because of the trickForm.photos collection, manually add token instead. #}
+    {{ form_row(trickForm._token) }}
+
+    <input type="submit" value="Ajouter la nouvelle figure"/>
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/handle-trick-photos-videos-collection.js') }}"></script>
+{% endblock %}
