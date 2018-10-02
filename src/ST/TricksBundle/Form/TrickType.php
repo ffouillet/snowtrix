@@ -28,6 +28,7 @@ class TrickType extends AbstractType
                     'error_bubbling' => true])
             ->add('groups', EntityType::class,
                 ['class' => TrickGroup::class,
+                    'required' => false,
                     'label' => 'Groupes de la figure : ',
                     'choice_label' => 'name',
                     'multiple' => true])
@@ -35,12 +36,14 @@ class TrickType extends AbstractType
                 ['label' => 'Photos de la figure : ',
                     'entry_type' => TrickPhotoType::class,
                     'allow_add' => true,
-                    'allow_delete' => true])
+                    'allow_delete' => true,
+                    'error_bubbling' => false])
             ->add('videos', CollectionType::class,
                 ['entry_type' => TrickVideoType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
                     'label' => 'Videos de la figure : ',
+                    'error_bubbling' => false
                 ]);
     }
 

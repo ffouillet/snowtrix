@@ -15,7 +15,9 @@ class TrickVideoType extends AbstractType
     {
         $builder
             ->add('embedCode', TextType::class,
-                ['required' => true, 'label' => 'Code Embed de la Video : '])
+                ['required' => true,
+                    'label' => 'Code Embed de la Video : ',
+                    'error_bubbling' => true])
         ;
     }
 

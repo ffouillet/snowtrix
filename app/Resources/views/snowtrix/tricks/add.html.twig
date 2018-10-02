@@ -27,8 +27,9 @@
 
     {# Photos #}
     <div>
-        {{ form_errors(trickForm.photos) }}
+
         {{ form_label(trickForm.photos) }}
+        {{ form_errors(trickForm.photos) }}
 
         <ul>
             <li>Formats acceptés : .jpg, .png</li>
@@ -49,13 +50,18 @@
 
     {# Videos #}
     <div>
-        {{ form_errors(trickForm.videos) }}
         {{ form_label(trickForm.videos) }}
+        {{ form_errors(trickForm.videos) }}
         <ul>
             <li>Format de vidéos embarqués acceptés : Youtube<br/>
             <a target="_blank" href="https://support.google.com/youtube/answer/171780?hl=fr">Comment intégrer une vidéo Youtube ?</a></li>
         </ul>
-        <ul class="trick-relation-collection" id="trick-videos" data-prototype="{{ _self.trick_photo_prototype(trickForm.videos.vars.prototype)|e('html_attr') }}">
+        <ul class="trick-relation-collection" id="trick-videos" data-prototype="{{ form_widget(trickForm.videos.vars.prototype)|e('html_attr') }}">
+            {% for trickVideo in trickForm.videos %}
+                <li>
+                    {{ form_widget(trickVideo) }}
+                </li>
+            {% endfor %}
         </ul>
     </div>
 

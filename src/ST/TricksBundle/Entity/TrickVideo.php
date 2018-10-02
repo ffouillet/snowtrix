@@ -3,6 +3,7 @@
 namespace ST\TricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TrickVideo
@@ -25,6 +26,10 @@ class TrickVideo
      * @var string
      *
      * @ORM\Column(name="embedCode", type="string", length=255, unique=true)
+     * @Assert\Regex(
+     *     pattern="/^<iframe.*$/",
+     *     message="Format de code embed de la vidéo incorrect. Merci de vous réferer à l'aide en cas de besoin."
+     * )
      */
     private $embedCode;
 

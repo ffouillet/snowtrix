@@ -1,28 +1,95 @@
 jQuery(document).ready(function() {
 
+    function validateTrickPhotoFileExtension($photoFile) {
+        var acceptedFileTypes = ['jpg','png'];
+        var successOrError = {'success' : false, 'errorMessage' : ''};
+
+        var fileExtension = $photoFile.name.split('.').pop().toLowerCase();
+
+        // Check file extension
+        if(acceptedFileTypes.indexOf(fileExtension) < 0) {
+            successOrError.errorMessage = "Impossible d'ajouter cette photo car le format est incorrect. Format d'images supportés : .jpg, .png";
+            return successOrError;
+        }
+
+        successOrError.success = true;
+
+        return successOrError;
+    }
+
+    function validateTrickPhotoSize($trickPhoto){
+        var requiredSize = {'minWidth' : 150, 'maxWidth' : 1920, 'minHeight' : 150, 'maxHeight' : 1080 };
+
+        var successOrError = {'success' : false, 'errorMessage' :''}
+
+        if($trickPhoto.width < requiredSize.minWidth) {
+            successOrError.errorMessage =
+                "Impossible d'ajouter cette photo car sa largeur est trop petite (Largeur minimum de photo requise : "+requiredSize.minWidth+"px).";
+        } else if($trickPhoto.width > requiredSize.maxWidth) {
+            successOrError.errorMessage =
+                "Impossible d'ajouter cette photo car sa largeur est trop grande (Largeur maximum de photo autorisée : "+requiredSize.maxWidth+"px).";
+        } else if($trickPhoto.height < requiredSize.minHeight) {
+            successOrError.errorMessage =
+                "Impossible d'ajouter cette photo car sa hauteur est trop petite (Hauteur minimum de photo requise : "+requiredSize.minHeight+"px).";
+        } else if($trickPhoto.height > requiredSize.maxHeight) {
+            successOrError.errorMessage =
+                "Impossible d'ajouter cette photo car sa hauteur est trop petite (Hauteur maximum de photo autorisée : "+requiredSize.maxHeight+"px).";
+        } else {
+            successOrError.success = true;
+        }
+
+        return successOrError;
+    }
+
     function showPhotoThumbForPreview($input){
 
         var $photoFile = $input[0].files[0];
         var $divContainer = $input.parent().parent();
 
+        // Check if image extension is valid.
+        var imageExtensionValid = validateTrickPhotoFileExtension($photoFile);
+
+        if(imageExtensionValid.success == false) {
+            alert(imageExtensionValid.errorMessage);
+            $input.val('');
+            return;
+        }
+
         // If picture has been added.
         if(null !== $photoFile) {
             var reader = new FileReader();
 
-            $previewImg = $($divContainer).find('img');
-
-            // Add the img tag if not existing
-            if($previewImg.length == 0) {
-                $input.before('<img width="200" maxHeight="100" src="#" class="trickPhotoPreview"/>');
-                $previewImg = $($divContainer).find('img');
-            }
-
-            // Hide input field.
-            $input.hide();
-
             // Replace img src with photo preview !
             reader.onload = function(e) {
-                $($previewImg).attr('src', e.target.result);
+
+                var trickPhoto = new Image();
+                trickPhoto.src = e.target.result;
+                trickPhoto.onload = function(){
+
+                    var $trickPhotoSizeValid = validateTrickPhotoSize(trickPhoto);
+
+                    $trickPhotoSizeValid.success = true;
+                    
+                    if($trickPhotoSizeValid.success == false) {
+                        alert($trickPhotoSizeValid.errorMessage);
+                        $input.val('');
+                        return;
+                    } else {
+                        $previewImg = $($divContainer).find('img');
+
+                        // Add the img tag if not existing
+                        if($previewImg.length == 0) {
+                            $input.before('<img width="200" maxHeight="100" src="#" class="trickPhotoPreview"/>');
+                            $previewImg = $($divContainer).find('img');
+                        }
+
+                        $($previewImg).attr('src', e.target.result);
+
+                        // Hide input field.
+                        $input.hide();
+                    }
+
+                };
             }
 
             reader.readAsDataURL($photoFile);

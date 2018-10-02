@@ -2,6 +2,7 @@
 
 namespace ST\TricksBundle\Entity;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="ST\TricksBundle\Repository\TrickRepository")
+ * @UniqueEntity(fields="name", message="Impossible d'ajouter cette figure car une figure portant le même nom existe déjà.")
  */
 class Trick
 {
@@ -74,14 +76,12 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickPhoto", mappedBy="trick", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $photos;
 
     /**
      * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickVideo", mappedBy="trick", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid()
      */
     private $videos;
@@ -94,7 +94,6 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickComment", mappedBy="trick")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $comments;
 
