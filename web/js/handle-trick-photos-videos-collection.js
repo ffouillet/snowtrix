@@ -68,8 +68,6 @@ jQuery(document).ready(function() {
 
                     var $trickPhotoSizeValid = validateTrickPhotoSize(trickPhoto);
 
-                    $trickPhotoSizeValid.success = true;
-                    
                     if($trickPhotoSizeValid.success == false) {
                         alert($trickPhotoSizeValid.errorMessage);
                         $input.val('');
@@ -188,8 +186,11 @@ jQuery(document).ready(function() {
         $collectionHolder.append($newElementLinkLi);
 
         // add a delete link to all of the existing tag form li elements
-            $collectionHolder.find('li:not(.add-'+$collectionHolderId+')').each(function() {
-            addRemoveButtonToCollectionElement($(this));
+        $collectionHolder.find('li:not(.add-'+$collectionHolderId+')').each(function() {
+            // Do not add delete button to form errors.
+            if($(this).parent().parent().attr('class') != 'form-error') {
+                addRemoveButtonToCollectionElement($(this));
+            }
         });
 
         // count the current form inputs we have (e.g. 2), use that as the new

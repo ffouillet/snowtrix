@@ -2,6 +2,18 @@
     {{ form_widget(trickPhotoForm) }}
 {% endmacro %}
 
+{% macro trick_video_prototype(trickVideoForm) %}
+
+    {{ form_label(trickVideoForm.embedCode) }}
+
+    <div class="form-error">
+        {{ form_errors(trickVideoForm.embedCode) }}
+    </div>
+
+    {{ form_widget(trickVideoForm.embedCode) }}
+
+{% endmacro %}
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -41,6 +53,9 @@
 
             {% for trickPhoto in trickForm.photos %}
                 <li>
+                    {% if trickPhoto.vars.data.photoUrl is not null %}
+                        <img src="{{ trickPhoto.vars.data.photoUrl }}"/>
+                    {% endif %}
                     {{ form_widget(trickPhoto) }}
                 </li>
             {% endfor %}
@@ -50,16 +65,17 @@
 
     {# Videos #}
     <div>
+
         {{ form_label(trickForm.videos) }}
-        {{ form_errors(trickForm.videos) }}
+
         <ul>
             <li>Format de vidéos embarqués acceptés : Youtube<br/>
             <a target="_blank" href="https://support.google.com/youtube/answer/171780?hl=fr">Comment intégrer une vidéo Youtube ?</a></li>
         </ul>
-        <ul class="trick-relation-collection" id="trick-videos" data-prototype="{{ form_widget(trickForm.videos.vars.prototype)|e('html_attr') }}">
+        <ul class="trick-relation-collection" id="trick-videos" data-prototype="{{ _self.trick_video_prototype(trickForm.videos.vars.prototype)|e('html_attr') }}">
             {% for trickVideo in trickForm.videos %}
                 <li>
-                    {{ form_widget(trickVideo) }}
+                    {{ _self.trick_video_prototype(trickVideo) }}
                 </li>
             {% endfor %}
         </ul>
