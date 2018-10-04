@@ -12,7 +12,7 @@
     {% if is_granted('ROLE_USER') %}
         <span class="trick-actions">
             <i class="fas fa-pencil-alt"><a href="{{ path('trick_edit', {'slug' : trick.slug }) }}">Modifier</a></i>
-            <i class="fas fa-trash-alt"><a href="#">Supprimer</a></i>
+            <i class="fas fa-trash-alt"><a href="{{ path('trick_delete', {'slug' : trick.slug }) }}">Supprimer</a></i>
         </span>
     {% endif %}
 

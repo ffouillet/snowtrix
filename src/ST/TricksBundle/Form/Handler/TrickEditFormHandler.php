@@ -112,7 +112,7 @@ class TrickEditFormHandler extends FormHandler
         foreach($originalTrickVideos as $originalVideo) {
             if (false === $currentTrick->getVideos()->contains($originalVideo)) {
                 $currentTrick->removeVideo($originalVideo);
-                // No need to remove manually because Trick->videos relation have orphanRemoval set to true.
+                // No need to remove manually because Trick->videos relation have orphanRemoval set to true
             }
         }
 
@@ -122,8 +122,6 @@ class TrickEditFormHandler extends FormHandler
                 $video->setTrick($currentTrick);
                 // No need to persist manually, cascade persist defined in Trick video relation.
             }
-
-            dump($currentTrick);
         }
     }
 }

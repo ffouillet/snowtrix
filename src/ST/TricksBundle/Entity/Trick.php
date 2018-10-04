@@ -100,7 +100,10 @@ class Trick
     private $groups;
 
     /**
-     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickComment", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickComment",
+     *     mappedBy="trick",
+     *     cascade={"remove"},
+     *     orphanRemoval=true)
      */
     private $comments;
 

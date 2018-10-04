@@ -12,10 +12,12 @@ class TrickListener implements EventSubscriber
 {
 
     private $fxStringsTools;
+    private $trickPhotosWebDir;
 
-    public function __construct(FxStringsTools $fxStringsTools)
+    public function __construct($trickPhotosWebDir, FxStringsTools $fxStringsTools)
     {
         $this->fxStringsTools = $fxStringsTools;
+        $this->trickPhotosWebDir = $trickPhotosWebDir;
     }
 
     public function getSubscribedEvents()
@@ -50,5 +52,4 @@ class TrickListener implements EventSubscriber
 
         $trick->setSlug($slug);
     }
-
 }

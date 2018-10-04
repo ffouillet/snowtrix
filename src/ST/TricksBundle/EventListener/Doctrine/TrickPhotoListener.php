@@ -13,16 +13,18 @@ class TrickPhotoListener implements EventSubscriber
 {
     private $uploader;
     private $trickPhotosWebDir;
+    private $trickPhotosRootDir;
 
-    public function __construct($trickPhotosWebDir, FileUploader $uploader)
+    public function __construct($trickPhotosWebDir, $trickPhotosRootDir, FileUploader $uploader)
     {
         $this->trickPhotosWebDir = $trickPhotosWebDir;
         $this->uploader = $uploader;
+        $this->trickPhotosRootDir = $trickPhotosRootDir;
     }
 
     public function getSubscribedEvents()
     {
-        return ['postPersist', 'postUpdate','postLoad'];
+        return ['postPersist', 'postUpdate','postLoad','postRemove'];
     }
 
     public function postPersist(LifecycleEventArgs $args)
@@ -72,7 +74,6 @@ class TrickPhotoListener implements EventSubscriber
 
     public function postLoad(LifecycleEventArgs $args)
     {
-
         $entity = $args->getEntity();
 
         if (!$entity instanceof TrickPhoto) {
@@ -84,5 +85,42 @@ class TrickPhotoListener implements EventSubscriber
             $photoUrl = $this->trickPhotosWebDir . '/' . $entity->getTrick()->getId() . '/' . $fileName;
             $entity->setPhotoUrl($photoUrl);
         }
+    }
+
+    public function postRemove(LifecycleEventArgs $args) {
+        $entity = $args->getEntity();
+
+        if (!$entity instanceof TrickPhoto) {
+            return;
+        }
+
+        $currentTrickPhotosRootDir = $this->getCurrentTrickPhotosRootDir($entity);
+        $currentTrickPhotoRootPath = $currentTrickPhotosRootDir . $entity->getPhoto();
+
+        // Remove current trick photo
+        if (file_exists($currentTrickPhotoRootPath)) {
+            unlink($currentTrickPhotoRootPath);
+        }
+
+
+        // If no more file in the trick photo dir, remove the repertory.
+        $fileCount = 0;
+        $files = glob($currentTrickPhotosRootDir .'*');
+        if($files) {
+            $fileCount = count($files);
+        }
+
+        if($fileCount == 0) {
+            if(is_dir($currentTrickPhotosRootDir)) {
+                rmdir($currentTrickPhotosRootDir);
+            }
+        }
+
+    }
+
+    public function getCurrentTrickPhotosRootDir($trickPhoto) {
+        $trickPhotosRootDir = $this->trickPhotosRootDir .'/'. $trickPhoto->getTrick()->getId() .'/';
+
+        return $trickPhotosRootDir;
     }
 }

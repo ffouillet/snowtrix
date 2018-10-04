@@ -13,6 +13,7 @@ use ST\TricksBundle\Form\Handler\TrickFormHandler;
 use ST\TricksBundle\Form\TrickEditType;
 use ST\TricksBundle\Form\TrickType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -89,10 +90,35 @@ class TricksController extends Controller
 
         // If submission has been done with success
         if($trickEditFormHandler->handle($request, $trickForm)) {
-            return $this->redirectToRoute('trick_edit',['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('snowtrix/tricks/edit.html.twig',
             ['trick' => $trick, 'trickForm' => $trickForm->createView()]);
+    }
+
+    /**
+     * @Route("/delete-trick/{slug}", name="trick_delete")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function deleteAction(Request $request, Trick $trick) {
+        $trickDeleteForm =
+            $this->createFormBuilder()
+            ->add('deleteTrick', SubmitType::class, ['label' => 'Oui, supprimer la figure'])
+            ->getForm();
+
+        $trickDeleteForm->handleRequest($request);
+
+        if($trickDeleteForm->isSubmitted()) {
+            if($trickDeleteForm->isValid()) {
+                $this->em->remove($trick);
+                $this->em->flush();
+                $this->addFlash('actionInfoSuccess','La figure '.$trick->getName().' a bien été supprimé.');
+                return $this->redirectToRoute('homepage');
+            }
+        }
+
+        return $this->render('snowtrix/tricks/delete.html.twig',
+            ['trick' => $trick, 'formDeleteTrick' => $trickDeleteForm->createView()]);
     }
 }

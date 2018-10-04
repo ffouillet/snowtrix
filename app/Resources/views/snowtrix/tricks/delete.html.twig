@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Supprimer la figure : {{ trick.name }} </h1>
+
+    <p>Êtes vous sûr de bien vouloir supprimer la figure "{{ trick.name }}"?</p>
+
+    {{ form_start(formDeleteTrick) }}
+    {{ form_widget(formDeleteTrick.deleteTrick) }}
+    <a href="{{ path('homepage') }}">Non, annuler la suppression</a>
+    {{ form_end(formDeleteTrick) }}
+{% endblock %}
+
+
+
