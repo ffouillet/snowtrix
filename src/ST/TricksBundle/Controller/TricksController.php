@@ -8,7 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use ST\TricksBundle\Entity\Trick;
 use ST\TricksBundle\Entity\TrickComment;
+use ST\TricksBundle\Form\Handler\TrickEditFormHandler;
 use ST\TricksBundle\Form\Handler\TrickFormHandler;
+use ST\TricksBundle\Form\TrickEditType;
 use ST\TricksBundle\Form\TrickType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,12 +68,31 @@ class TricksController extends Controller
     public function addAction(Request $request, TrickFormHandler $trickFormHandler){
 
         $trick = new Trick();
-
-        // Handle trickForm submission
         $trickForm = $this->createForm(TrickType::class, $trick);
-        $trickFormHandler->handle($request, $trickForm);
+
+        // If submission has been done with success
+        if ($trickFormHandler->handle($request, $trickForm)) {
+            return $this->redirectToRoute('homepage');
+        }
 
         return $this->render('snowtrix/tricks/add.html.twig',
             ['trickForm' => $trickForm->createView()]);
+    }
+
+    /**
+     * @Route("/edit-trick/{slug}", name="trick_edit")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function editAction(Request $request, Trick $trick, TrickEditFormHandler $trickEditFormHandler){
+
+        $trickForm = $this->createForm(TrickEditType::class, $trick);
+
+        // If submission has been done with success
+        if($trickEditFormHandler->handle($request, $trickForm)) {
+            return $this->redirectToRoute('trick_edit',['slug' => $trick->getSlug()]);
+        }
+
+        return $this->render('snowtrix/tricks/edit.html.twig',
+            ['trick' => $trick, 'trickForm' => $trickForm->createView()]);
     }
 }

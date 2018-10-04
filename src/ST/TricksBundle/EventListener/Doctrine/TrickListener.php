@@ -7,7 +7,6 @@ use CoreBundle\Service\FxStringsTools;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use ST\TricksBundle\Entity\Trick;
-use ST\TricksBundle\Entity\TrickPhoto;
 
 class TrickListener implements EventSubscriber
 {
@@ -21,23 +20,35 @@ class TrickListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return ['prePersist'];
+        return ['prePersist','preUpdate'];
     }
 
     // Set the Trick's slug
     public function prePersist(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
+        $trick = $args->getEntity();
 
-        if (!$entity instanceof Trick) {
+        $this->updateSlug($trick);
+
+    }
+
+    public function preUpdate(LifecycleEventArgs $args)
+    {
+        $trick = $args->getEntity();
+
+        $this->updateSlug($trick);
+
+    }
+
+    public function updateSlug($trick) {
+
+        if (!$trick instanceof Trick) {
             return;
         }
 
-        $slug = $this->fxStringsTools->quickSlugify($entity->getName());
+        $slug = $this->fxStringsTools->quickSlugify($trick->getName());
 
-        $entity->setSlug($slug);
-
-        dump($entity);
+        $trick->setSlug($slug);
     }
 
 }

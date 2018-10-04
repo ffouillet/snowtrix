@@ -75,13 +75,20 @@ class Trick
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickPhoto", mappedBy="trick", cascade={"persist", "remove"})
+     * @ORM\OneToMany(
+     *     targetEntity="ST\TricksBundle\Entity\TrickPhoto",
+     *     mappedBy="trick",
+     *     cascade={"remove"},
+     *     orphanRemoval=true)
      * @Assert\Valid()
      */
     private $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickVideo", mappedBy="trick", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ST\TricksBundle\Entity\TrickVideo",
+     *     mappedBy="trick",
+     *     cascade={"persist", "remove"},
+     *     orphanRemoval=true)
      * @Assert\Valid()
      */
     private $videos;
@@ -298,11 +305,11 @@ class Trick
     /**
      * Add video
      *
-     * @param \ST\TricksBundle\Entity\TrickVideo $video
+     * @param TrickVideo $video
      *
      * @return Trick
      */
-    public function addVideo(\ST\TricksBundle\Entity\TrickVideo $video)
+    public function addVideo(TrickVideo $video)
     {
         $this->videos[] = $video;
 
@@ -312,9 +319,9 @@ class Trick
     /**
      * Remove video
      *
-     * @param \ST\TricksBundle\Entity\TrickVideo $video
+     * @param TrickVideo $video
      */
-    public function removeVideo(\ST\TricksBundle\Entity\TrickVideo $video)
+    public function removeVideo(TrickVideo $video)
     {
         $this->videos->removeElement($video);
     }
@@ -332,11 +339,11 @@ class Trick
     /**
      * Add comment.
      *
-     * @param \ST\TricksBundle\Entity\TrickComment $comment
+     * @param TrickComment $comment
      *
      * @return Trick
      */
-    public function addComment(\ST\TricksBundle\Entity\TrickComment $comment)
+    public function addComment(TrickComment $comment)
     {
         $this->comments[] = $comment;
 
@@ -346,11 +353,11 @@ class Trick
     /**
      * Remove comment.
      *
-     * @param \ST\TricksBundle\Entity\TrickComment $comment
+     * @param TrickComment $comment
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeComment(\ST\TricksBundle\Entity\TrickComment $comment)
+    public function removeComment(TrickComment $comment)
     {
         return $this->comments->removeElement($comment);
     }

@@ -4,10 +4,10 @@ namespace ST\TricksBundle\Form;
 
 use ST\TricksBundle\Entity\Trick;
 use ST\TricksBundle\Entity\TrickGroup;
-use ST\TricksBundle\Entity\TrickPhoto;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +28,7 @@ class TrickType extends AbstractType
                     'error_bubbling' => true])
             ->add('groups', EntityType::class,
                 ['class' => TrickGroup::class,
-                    'required' => false,
+                    'required' => true,
                     'label' => 'Groupes de la figure : ',
                     'choice_label' => 'name',
                     'multiple' => true])
@@ -44,7 +44,9 @@ class TrickType extends AbstractType
                     'allow_delete' => true,
                     'label' => 'Videos de la figure : ',
                     'error_bubbling' => false
-                ]);
+                ])
+            ->add('submit', SubmitType::class,
+                ['label' => 'Ajouter la nouvelle figure']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

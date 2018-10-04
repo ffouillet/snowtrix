@@ -1,0 +1,92 @@
+{% macro trick_photo_prototype(trickPhotoForm) %}
+
+    {# Do not render the Chose File input if we are editing a trick, render the photo instead #}
+    {% if trickPhotoForm.vars.data is not null %}
+        {% if trickPhotoForm.vars.data.photoUrl != "" %}
+            <img class="trick-thumbnail" src="{{ asset(trickPhotoForm.vars.data.photoUrl) }}"/>
+        {% endif %}
+    {% endif %}
+
+    {{ form_widget(trickPhotoForm.photo) }}
+
+{% endmacro %}
+
+{% macro trick_video_prototype(trickVideoForm) %}
+
+    {{ form_label(trickVideoForm.embedCode) }}
+    <div class="form-error">
+        {{ form_errors(trickVideoForm.embedCode) }}
+    </div>
+    {{ form_widget(trickVideoForm.embedCode) }}
+
+{% endmacro %}
+
+{% for message in app.flashes('addTrick') %}
+    <div class="alert alert-notice">
+        {{ message }}
+    </div>
+{% endfor %}
+
+    {{ form_start(trickForm) }}
+    {{ form_errors(trickForm) }}
+
+    {{ form_row(trickForm.name) }}
+    {{ form_row(trickForm.description) }}
+
+    {# Groupes #}
+<div>
+    {{ form_row(trickForm.groups) }}
+</div>
+
+{# Photos #}
+<div>
+
+    {{ form_label(trickForm.photos) }}
+    {{ form_errors(trickForm.photos) }}
+
+    <ul>
+        <li>Formats acceptés : .jpg, .png</li>
+        <li>Largeur maximum : 1920px</li>
+        <li>Largeur minimum : 1080px</li>
+    </ul>
+
+    <ul class="trick-relation-collection" id="trick-photos" data-prototype="{{ _self.trick_photo_prototype(trickForm.photos.vars.prototype)|e('html_attr') }}">
+
+        {% for trickPhoto in trickForm.photos %}
+            <li>
+                {{ _self.trick_photo_prototype(trickPhoto) }}
+
+            </li>
+        {% endfor %}
+
+    </ul>
+</div>
+
+{# Videos #}
+<div>
+
+    {{ form_label(trickForm.videos) }}
+
+    <ul>
+        <li>Format de vidéos embarqués acceptés : Youtube<br/>
+            <a target="_blank" href="https://support.google.com/youtube/answer/171780?hl=fr">Comment intégrer une vidéo Youtube ?</a></li>
+    </ul>
+    <ul class="trick-relation-collection" id="trick-videos" data-prototype="{{ _self.trick_video_prototype(trickForm.videos.vars.prototype)|e('html_attr') }}">
+        {% for trickVideo in trickForm.videos %}
+            <li>
+                {{ _self.trick_video_prototype(trickVideo) }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{# Don't use form_end here because of the trickForm.photos collection, manually add token instead. #}
+{{ form_row(trickForm._token) }}
+
+{{ form_row(trickForm.submit) }}
+
+{{ form_end(trickForm, {'render_rest': false}) }}
+
+
+
+

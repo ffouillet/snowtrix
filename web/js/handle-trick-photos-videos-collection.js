@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
 
     function validateTrickPhotoFileExtension($photoFile) {
-        var acceptedFileTypes = ['jpg','png'];
+        var acceptedFileTypes = ['jpg','jpeg','png'];
         var successOrError = {'success' : false, 'errorMessage' : ''};
 
         var fileExtension = $photoFile.name.split('.').pop().toLowerCase();
@@ -44,7 +44,7 @@ jQuery(document).ready(function() {
     function showPhotoThumbForPreview($input){
 
         var $photoFile = $input[0].files[0];
-        var $divContainer = $input.parent().parent();
+        var $currentLiItem = $input.parent(); // Will be used to add img and set it src.
 
         // Check if image extension is valid.
         var imageExtensionValid = validateTrickPhotoFileExtension($photoFile);
@@ -73,20 +73,17 @@ jQuery(document).ready(function() {
                         $input.val('');
                         return;
                     } else {
-                        $previewImg = $($divContainer).find('img');
+                        $previewImg = $($currentLiItem).find('img');
 
                         // Add the img tag if not existing
                         if($previewImg.length == 0) {
                             $input.before('<img width="200" maxHeight="100" src="#" class="trickPhotoPreview"/>');
-                            $previewImg = $($divContainer).find('img');
+                            $previewImg = $($currentLiItem).find('img');
                         }
 
                         $($previewImg).attr('src', e.target.result);
 
-                        // Hide input field.
-                        $input.hide();
                     }
-
                 };
             }
 
@@ -201,5 +198,17 @@ jQuery(document).ready(function() {
             // add a new tag form (see next code block)
             addAddElementButtonToCollection($collectionHolder, $newElementLinkLi);
         });
+
+        // Add possibility for exising trick photos input to have photo change if required
+        // In case of we are adding photos, user need to preview the picture.
+        if ($collectionHolder.attr('id') == "trick-photos") {
+            $photoFileInputs = $($collectionHolder).find('input');
+
+            $photoFileInputs.each(function(){
+                $(this).on('change', function(){
+                    showPhotoThumbForPreview($(this));
+                });
+            });
+        }
     });
 });
