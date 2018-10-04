@@ -1,0 +1,25 @@
+{% if trickComments is not empty %}
+    <ul>
+        {% for trickComment in trickComments %}
+            <li class="trick-comment">
+                <div class="username-date">
+                    {{ trickComment.user.username }} le {{ trickComment.createdAt|date('d/m/Y à H\\hi', "Europe/Paris") }}
+                </div>
+                <div class="content">
+                    {{ trickComment.content }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if nbPagesComments > 1 %}
+        {% for p in range(1, nbPagesComments) %}
+            <li{% if p == commentsPage %} class="active"{% endif %}>
+                <a href="{{ path('trick_view', {'slug' : trick.slug, 'commentsPage': p}) }}">{{ p }}</a>
+            </li>
+        {% endfor %}
+    {%  endif %}
+
+{% else %}
+    <p>Aucun commentaire à propos de cette figure pour le moment.</p>
+{% endif %}

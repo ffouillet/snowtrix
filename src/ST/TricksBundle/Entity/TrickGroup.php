@@ -36,7 +36,7 @@ class TrickGroup
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ST\TricksBundle\Entity\Trick", mappedBy="groups")
+     * @ORM\ManyToMany(targetEntity="ST\TricksBundle\Entity\Trick", mappedBy="groups", cascade={"persist","remove"})
      */
     private $tricks;
 

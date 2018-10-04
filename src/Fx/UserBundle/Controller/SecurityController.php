@@ -54,7 +54,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/register", name="fx_user_registration")
+     * @Route("/register", name="fx_user_register")
      */
     public function register(Request $request, RegisterFormHandler $registerFormHandler)
     {

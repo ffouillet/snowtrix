@@ -2,17 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta lang="fr"/>
         <title>{% block title %}SnowTrix !{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('css/snowtrix.css') }}" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     </head>
     <body>
-
-        {% if is_granted('ROLE_USER') %}
-            <p><a href="{{ path('fx_user_logout') }}">Logout</a></p>
-        {% else %}
-            <p><a href="{{ path('fx_user_login') }}">Login</a></p>
-        {% endif %}
+        {% include 'snowtrix/menu.html.twig' %}
 
         {% for message in app.flashes('actionInfoError') %}
             <div class="flash-notice flash-notice-error">
@@ -27,6 +25,12 @@
         {% endfor %}
 
         {% block body %}{% endblock %}
+
+        <script
+                src="https://code.jquery.com/jquery-2.2.4.min.js"
+                integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+                crossorigin="anonymous"></script>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>

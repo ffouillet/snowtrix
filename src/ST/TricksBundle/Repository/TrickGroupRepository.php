@@ -10,23 +10,16 @@ namespace ST\TricksBundle\Repository;
  */
 class TrickGroupRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAllWithRelations($relations){
-
-        if(is_string($relations)) {
-            $relations = [$relations];
-        }
-
-        if (empty($relations)) {
-            throw new \InvalidArgumentException('Array that need to contains relations in empty.');
-        }
+    public function findAllWithTricks(){
 
         $qb = $this->createQueryBuilder('tg');
 
-        foreach($relations as $relation) {
-            $joinedEntityShortName = substr($relation,0,3);
-            $qb->join('tg.'.$relation, $joinedEntityShortName);
-            $qb->addSelect($joinedEntityShortName);
-        }
+        $qb->join('tg.tricks', 'tricks');
+        $qb->addSelect('tricks');
+        $qb->leftJoin('tricks.photos','tricksPhotos');
+        $qb->addSelect('tricksPhotos');
+        $qb->leftJoin('tricks.videos','tricksVideos');
+        $qb->addSelect('tricksVideos');
 
         return $qb->getQuery()->getResult();
     }

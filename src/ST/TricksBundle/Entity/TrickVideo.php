@@ -3,6 +3,7 @@
 namespace ST\TricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TrickVideo
@@ -24,12 +25,16 @@ class TrickVideo
     /**
      * @var string
      *
-     * @ORM\Column(name="embedCode", type="string", length=255, unique=true)
+     * @ORM\Column(name="embedCode", type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/^<iframe.*><\/iframe>$/",
+     *     message="Format de code embed de la vidéo incorrect. Merci de vous réferer à l'aide en cas de besoin."
+     * )
      */
     private $embedCode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ST\TricksBundle\Entity\Trick", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="ST\TricksBundle\Entity\Trick", inversedBy="videos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
@@ -72,11 +77,11 @@ class TrickVideo
     /**
      * Set trick
      *
-     * @param \ST\TricksBundle\Entity\Trick $trick
+     * @param Trick $trick
      *
      * @return TrickVideo
      */
-    public function setTrick(\ST\TricksBundle\Entity\Trick $trick)
+    public function setTrick(Trick $trick)
     {
         $this->trick = $trick;
 
@@ -86,7 +91,7 @@ class TrickVideo
     /**
      * Get trick
      *
-     * @return \ST\TricksBundle\Entity\Trick
+     * @return Trick
      */
     public function getTrick()
     {

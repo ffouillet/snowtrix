@@ -19,15 +19,14 @@ class TricksGroupsController extends Controller
     }
 
     /**
-     * @Route("/", name="snowtrix_home")
+     * @Route("/", name="homepage")
      */
     public function indexAction()
     {
         // Get all tricks groups and associated tricks.
-        $tricksGroups = $this->em->getRepository('STTricksBundle:TrickGroup')->findAllWithRelations('tricks');
+        $tricksGroups = $this->em->getRepository('STTricksBundle:TrickGroup')->findAllWithTricks();
 
-        dump($tricksGroups);
-
-        return $this->render('snowtrix/index.html.twig');
+        return $this->render('snowtrix/index.html.twig',
+            ['tricksGroups' => $tricksGroups]);
     }
 }

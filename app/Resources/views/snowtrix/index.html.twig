@@ -3,5 +3,36 @@
 {% block body %}
 
     <h1>Bienvenue sur SnowTrix ! </h1>
+    <h2>La communauté pour découvrir le snowboard et ses figures</h2>
 
+    <h3>Liste des figures de snowboard</h3>
+    {% if tricksGroups is not empty %}
+        {% for trickGroup in tricksGroups %}
+            <h4>{{ trickGroup.name }}s : </h4>
+            {% if trickGroup.tricks is not empty %}
+                <ul class="trick-group-list">
+                    {% for trick in trickGroup.tricks %}
+                        <li>
+                            <a href="{{ path('trick_view', {'slug': trick.slug }) }}">
+                                {% if trick.photos is not empty %}
+                                    <img class="trick-thumbnail" src="{{ asset(trick.photos[0].photoUrl) }}" alt="Photo de la figure de snowbard {{ trick.name }}"/>
+                                {% endif %}
+                                {{ trick.name }}
+                            </a>
+                            {% if is_granted('ROLE_USER') %}
+                                <div class="trick-actions">
+                                    <i class="fas fa-pencil-alt"><a href="{{ path('trick_edit', {'slug' : trick.slug }) }}">Modifier</a></i>
+                                    <i class="fas fa-trash-alt"><a href="{{ path('trick_delete', {'slug' : trick.slug }) }}">Supprimer</a></i>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Aucune figure de snowboard dans ce groupe de figures pour le moment :-(</p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Aucune figure de snowboard créee pour le moment :-(</p>
+    {% endif %}
 {% endblock %}
