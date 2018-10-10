@@ -14,12 +14,14 @@ class TrickAndTrickGroupFixtures extends Fixture
     {
         // Create Two Trick Groups
         $trickGroup['grabs'] = new TrickGroup();
-        $trickGroup['grabs']->setName('Grabs');
-        $trickGroup['grabs']->setSlug('grabs');
+        $trickGroup['grabs']->setName('Grab');
+        $trickGroup['grabs']->setSlug('grab');
+        $trickGroup['grabs']->setDescription('Un grab consiste à attraper la planche avec la main pendant le saut. Le verbe anglais to grab signifie « attraper. » ');
 
         $trickGroup['slides'] = new TrickGroup();
-        $trickGroup['slides']->setName('Slides');
-        $trickGroup['slides']->setSlug('slides');
+        $trickGroup['slides']->setName('Slide');
+        $trickGroup['slides']->setSlug('slide');
+        $trickGroup['slides']->setDescription('Le Slide (aussi appelé Jib et Grind) est une pratique du snowboard freestyle consistant à glisser sur tous types de modules autre que la neige (rails, troncs d\'arbre, caisse en plastique, etc.).');
 
         // Create Tricks
         $tricksData['grabs'] = [

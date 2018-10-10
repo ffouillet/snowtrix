@@ -2,37 +2,92 @@
 
 {% block body %}
 
-    <h1>Bienvenue sur SnowTrix ! </h1>
-    <h2>La communauté pour découvrir le snowboard et ses figures</h2>
+    <section id="banner">
+        <div class="inner">
+            <div class="">
+                <div class="logo"><span class="icon fa-snowflake-o"></span></div>
+                <h2>SnowTrix</h2>
+                <p>La communauté pour découvrir le snowboard et ses figures</p>
+            </div>
 
-    <h3>Liste des figures de snowboard</h3>
-    {% if tricksGroups is not empty %}
-        {% for trickGroup in tricksGroups %}
-            <h4>{{ trickGroup.name }}s : </h4>
-            {% if trickGroup.tricks is not empty %}
-                <ul class="trick-group-list">
-                    {% for trick in trickGroup.tricks %}
-                        <li>
-                            <a href="{{ path('trick_view', {'slug': trick.slug }) }}">
-                                {% if trick.photos is not empty %}
-                                    <img class="trick-thumbnail" src="{{ asset(trick.photos[0].photoUrl) }}" alt="Photo de la figure de snowbard {{ trick.name }}"/>
+        </div>
+    </section>
+
+    <section id="wrapper">
+
+        <section id="1" class="wrapper spotlight style1">
+            <div class="inner">
+                <a href="https://fr.wikipedia.org/wiki/Snowboard" class="snowboard-about-image image"><img src="{{ asset('images/pic01.jpg') }}" alt="" /></a>
+                <div class="content">
+                    <h2 class="major">A propos du snowboard</h2>
+                    <p>
+                        Le snowboard, surf des neiges, planche à neige au Canada ou encore planche de neige, est un <b>sport de glisse sur neige</b>. L'équipement se compose d'une planche de snowboard (board en anglais signifie « planche » et snow signifie « neige »), d'une paire de fixations (il en existe plusieurs types) et d'une paire de bottes adaptées (désignées par l'anglicisme boots).
+                        La position sur la planche est proche de celle du skateur : de profil, les pieds posés sur une ligne en travers de la planche, l'un derrière l'autre.
+                        Les adeptes de ce sport sont les snowboarders (snowboardeurs ou les nivoplanchistes) ou les surfeurs.
+                    </p>
+                    <a href="https://fr.wikipedia.org/wiki/Snowboard" class="special" target="_blank">Source : Wikipedia</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Two -->
+        <section id="2" class="wrapper alt spotlight style2 trick-groups">
+            <div class="inner">
+                <h2 class="major">Liste des figures</h2>
+
+                    {% if tricksGroups is not empty %}
+
+                        {% for trickGroup in tricksGroups %}
+                            <div class="trick-group">
+                                <h3>Les {{ trickGroup.name }}s : </h3>
+                                <div class="trick-description"></div>
+                                <p>{{ trickGroup.description }}</p>
+                                {% if trickGroup.tricks is not empty %}
+                                    <p>Il existe différent types de {{ trickGroup.name | lower }}s, en voici quelques-uns :</p>
+                                    <ul class="trick-group-list {{ trickGroup.slug }}s">
+                                        {% for trick in trickGroup.tricks %}
+                                            <li>
+                                                <a href="{{ path('trick_view', {'slug': trick.slug }) }}">
+                                                    {% if trick.photos is not empty %}
+                                                        <img class="trick-thumbnail" src="{{ asset(trick.photos[0].photoUrl) }}" alt="Photo de la figure de snowbard {{ trick.name }}"/>
+                                                    {% endif %}
+                                                    <h4>
+                                                        {{ trick.name }}
+                                                    </h4>
+                                                </a>
+                                                {% if is_granted('ROLE_USER') %}
+                                                    <div class="trick-actions">
+                                                        <i class="fa fa-pencil"><a href="{{ path('trick_edit', {'slug' : trick.slug }) }}">Modifier</a></i>
+                                                        <i class="fa fa-trash"><a href="{{ path('trick_delete', {'slug' : trick.slug }) }}">Supprimer</a></i>
+                                                    </div>
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>Aucune figure de snowboard dans ce groupe de figures pour le moment :-(</p>
                                 {% endif %}
-                                {{ trick.name }}
-                            </a>
-                            {% if is_granted('ROLE_USER') %}
-                                <div class="trick-actions">
-                                    <i class="fas fa-pencil-alt"><a href="{{ path('trick_edit', {'slug' : trick.slug }) }}">Modifier</a></i>
-                                    <i class="fas fa-trash-alt"><a href="{{ path('trick_delete', {'slug' : trick.slug }) }}">Supprimer</a></i>
-                                </div>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>Aucune figure de snowboard dans ce groupe de figures pour le moment :-(</p>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>Aucune figure de snowboard créee pour le moment :-(</p>
-    {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>Aucune figure de snowboard créee pour le moment :-(</p>
+                    {% endif %}
+
+            </div>
+        </section>
+
+        <!-- Three -->
+        <section id="3" class="wrapper spotlight style3">
+            <div class="inner">
+
+                <div class="content">
+                    <h2 class="major">Un peu d'histoire</h2>
+                    <p>Le Snowboard ou surf des neiges est un descendant logique du surf des mers et du skateboard. Le surf est une pratique sportive originaire d'Hawaï au moins au xve siècle et représente un élément important de la culture de ces îles. Le surf a aussi inspiré le skateboard, initié en 1950 et qui se développera plus vite, le snowboard sera plus long à être mis au point et à se répandre mais gardera l'esprit de ces 2 sports.</p>
+                    <a href="https://fr.wikipedia.org/wiki/Snowboard#Histoire" class="special" target="_blank">Source : Wikipédia</a>
+                </div>
+                <a href="https://fr.wikipedia.org/wiki/Snowboard#Histoire" class="image"><img src="/images/pic03.jpg" alt="" /></a>
+            </div>
+        </section>
+    </section>
+
 {% endblock %}

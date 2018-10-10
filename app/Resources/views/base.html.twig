@@ -3,33 +3,53 @@
     <head>
         <meta charset="UTF-8" />
         <meta lang="fr"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <title>{% block title %}SnowTrix !{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+        <noscript><link rel="stylesheet" href="{{ asset('css/noscript.css') }}" /></noscript>
         <link rel="stylesheet" href="{{ asset('css/snowtrix.css') }}" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
     </head>
-    <body>
-        {% include 'snowtrix/menu.html.twig' %}
+    <body class="is-preload">
 
-        {% for message in app.flashes('actionInfoError') %}
-            <div class="flash-notice flash-notice-error">
-                {{ message | raw }}
-            </div>
-        {% endfor %}
+        <div id="page-wrapper">
 
-        {% for message in app.flashes('actionInfoSuccess') %}
-            <div class="flash-notice flash-notice-success">
-                {{ message | raw }}
-            </div>
-        {% endfor %}
 
-        {% block body %}{% endblock %}
+            {% for message in app.flashes('actionInfoError') %}
+                <div class="flash-notice flash-notice-error">
+                    {{ message | raw }}
+                </div>
+            {% endfor %}
 
-        <script
-                src="https://code.jquery.com/jquery-2.2.4.min.js"
-                integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-                crossorigin="anonymous"></script>
+            {% for message in app.flashes('actionInfoSuccess') %}
+                <div class="flash-notice flash-notice-success">
+                    {{ message | raw }}
+                </div>
+            {% endfor %}
+
+            <header id="header" class="alt">
+                <h1><a href="index.html">SnowTrix</a></h1>
+                <nav>
+                    <a href="#menu">Menu</a>
+                </nav>
+            </header>
+
+            {% include 'snowtrix/menu.html.twig' %}
+
+            {% block body %}{% endblock %}
+
+            {% include 'snowtrix/footer.html.twig' %}
+        </div>
+
+        <script src="{{ asset('js/vendor/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/vendor/jquery.scrollex.min.js') }}"></script>
+        <script src="{{ asset('js/vendor/browser.min.js') }}"></script>
+        <script src="{{ asset('js/vendor/breakpoints.min.js') }}"></script>
+        <script src="{{ asset('js/util.js') }}"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
 
         {% block javascripts %}{% endblock %}
     </body>
