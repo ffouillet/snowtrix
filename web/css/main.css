@@ -3885,7 +3885,7 @@ input, select, textarea {
 				}
 
 				.wrapper.spotlight:nth-child(2n - 1) .image {
-					margin: 0 0 2em 2em;
+					margin: 0 2em 2em 2em;
 				}
 
 		}
@@ -3926,7 +3926,7 @@ input, select, textarea {
 				}
 
 				.wrapper.spotlight:nth-child(2n - 1) .image {
-					margin: 0 0 2em 1.75em;
+					margin: 0 1.75em 2em 1.75em;
 				}
 
 		}

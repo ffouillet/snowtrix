@@ -1,5 +1,6 @@
 .trick-thumbnail {
     max-width: 400px;
+    width : 100%;
 }
 
 section.trick-groups .inner{
@@ -20,6 +21,7 @@ section.trick-groups .inner .trick-group
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .trick-group-list li {
@@ -27,6 +29,7 @@ section.trick-groups .inner .trick-group
     background-color: #073b58;
     border-radius: 5px;
     margin : 0px 20px 25px;
+    width : 43%;
 }
 
 .trick-group-list li:hover {
@@ -37,8 +40,8 @@ section.trick-groups .inner .trick-group
     font-size : 1em;
 }
 
-.trick-group-list.grabs img {
-    max-width: 245px;
+.trick-group-list.grabs li {
+    width : 28%;
 }
 
 .trick-actions {
@@ -100,3 +103,67 @@ a.snowboard-about-image {
     margin: 0 0 2em 3em !important;
 }
 
+@media screen and (max-width: 980px) {
+    footer:before {
+        top: -4.75em;
+        height: 4.75em;
+    }
+
+    footer {
+        margin: 4.75em 0 0;
+        padding: 0px 30px;
+    }
+}
+
+/* Resize trick li on trick lists */
+@media screen and (max-width: 900px) {
+    .trick-group-list.grabs li {
+        width : 43%;
+    }
+
+    .trick-thumbnail.grabs {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    footer:before {
+        top: -2.5em;
+        height: 2.5em;
+    }
+
+    footer {
+        margin: 2.5em 0 0;
+    }
+}
+
+@media screen and (max-width: 655px) {
+    .trick-group-list li,
+    .trick-group-list.grabs li
+    {
+        width : 80%;
+    }
+
+    .trick-thumbnail {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .snowboard-about-image,
+    .snowboard-history-image{
+        display: flex;
+        justify-content: center;
+        width: 100% !important;
+        max-width : 100% !important;
+        margin : 0px !important;
+    }
+
+    .snowboard-about-image img,
+    .snowboard-history-image img{
+        width:65% !important;
+        height: 50% !important;
+    }
+
+}
