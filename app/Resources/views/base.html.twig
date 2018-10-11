@@ -17,7 +17,6 @@
 
         <div id="page-wrapper">
 
-
             {% for message in app.flashes('actionInfoError') %}
                 <div class="flash-notice flash-notice-error">
                     {{ message | raw }}
@@ -30,9 +29,9 @@
                 </div>
             {% endfor %}
 
-            <header id="header" class="alt">
-                <h1><a href="index.html">SnowTrix</a></h1>
-                <nav>
+            <header id="header">
+                <h1><a href="{{ path('homepage') }}"><i class="fa fa-snowflake-o"></i>SnowTrix</a></h1>
+                <nav id="enable-nav">
                     <a href="#menu">Menu</a>
                 </nav>
             </header>
@@ -50,6 +49,7 @@
         <script src="{{ asset('js/vendor/breakpoints.min.js') }}"></script>
         <script src="{{ asset('js/util.js') }}"></script>
         <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ asset('js/snowtrix.js') }}"></script>
 
         {% block javascripts %}{% endblock %}
     </body>
