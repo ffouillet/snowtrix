@@ -45,8 +45,7 @@ class TricksController extends Controller
         $commentForm = $this->createForm(CommentType::class, $trickComment);
 
         if ($commentFormhandler->handle($request, $commentForm, $this->getUser())) {
-            // Empty form data after submission
-            $commentForm = $this->createForm(CommentType::class, new TrickComment());
+            return $this->redirectToRoute('trick_view', ['slug' => $trick->getSlug()]);
         }
 
         // Paginated comments

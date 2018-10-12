@@ -1,82 +1,99 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    {% for message in app.flashes('addComment') %}
-        <div class="alert alert-notice">
-            {{ message }}
-        </div>
-    {% endfor %}
-
-    <h1>{{ trick.name }}</h1>
-    {% if is_granted('ROLE_USER') %}
-        <span class="trick-actions">
-            <i class="fas fa-pencil-alt"><a href="{{ path('trick_edit', {'slug' : trick.slug }) }}">Modifier</a></i>
-            <i class="fas fa-trash-alt"><a href="{{ path('trick_delete', {'slug' : trick.slug }) }}">Supprimer</a></i>
-        </span>
-    {% endif %}
-
-    {# Photos #}
-    <section class="trick-photos">
-        <h2>Photos :</h2>
-        {% if trick.photos is not empty %}
-            <ul>
-                {% for trickPhoto in trick.photos %}
-                    <img src="{{ asset(trickPhoto.photoUrl) }}" alt="Une photo de la figure {{ trick.name }}">
+    <section class="wrapper spotlight style2 snowtrix-solo-wrapper trick-details-wrapper">
+        <div class="inner snowtrix-fx-style">
+            <div class="snowtrix-fx-panel">
+                {% for message in app.flashes('addComment') %}
+                    <div class="alert alert-notice">
+                        {{ message }}
+                    </div>
                 {% endfor %}
-            </ul>
-        {% else %}
-            <p>Aucune photo de cette figure à afficher pour le moment.</p>
-        {% endif %}
-    </section>
 
-    {# Videos#}
-    <section class="trick-videos">
-        <h2>Videos : </h2>
-        {% if trick.videos is not empty %}
-            <ul>
-                {% for video in trick.videos %}
-                    {{ video.embedCode | raw }}
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>Aucune vidéo de cette figure pour le moment.</p>
-        {% endif %}
-    </section>
-
-    {# Description #}
-    <section class="trick-infos">
-        <h2>Informations : </h2>
-        <ul>
-            <li>Type(s) de figure :
-                {% if trick.groups is not empty %}
-                    {% for trickGroup in trick.groups %}
-                       {{trickGroup.name}}{% if not loop.last %},{% endif %}
-                    {% endfor %}
-                {% else %}
-                    Cette figure n'a pas de type particulier.
+                <h1 class="trick-name">Figure : {{ trick.name }}</h1>
+                {% if is_granted('ROLE_USER') %}
+                    <div class="trick-actions-helper">
+                        <span class="trick-actions" id="trick-actions-view-trick">
+                        <i class="trick-action-edit fa fa-pencil"><a href="{{ path('trick_edit', {'slug' : trick.slug }) }}">Modifier</a></i>
+                        <i class="trick-action-delete fa fa-trash"><a href="{{ path('trick_delete', {'slug' : trick.slug }) }}">Supprimer</a></i>
+                    </span>
+                    </div>
                 {% endif %}
 
-            </li>
-            <li>Date de création : {{ trick.createdAt |date("d/m/Y", "Europe/Paris") }}</li>
-            <li>Dernière mise à jour :
-                {% if trick.updatedAt is not null %}
-                    {{ trick.updatedAt |date("d/m/Y", "Europe/Paris") }}
-                {% else %}
-                    Aucune modifications.
-                {%  endif %}
-            </li>
-        </ul>
-    </section>
+                {# Photos #}
+                <section class="trick-photos">
+                    {% if trick.photos is not empty %}
+                        <img src="{{ asset(trick.photos[0].photoUrl) }}" alt="Une photo de la figure {{ trick.name }}">
+                        {% if trick.photos|length > 1 %}
+                            <ul class="secondary-trick-photos">
+                                {% for trickPhoto in trick.photos %}
+                                    {% if loop.index > 1 %}
+                                        <li><img src="{{ asset(trickPhoto.photoUrl) }}" alt="Une photo de la figure {{ trick.name }}"></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% else %}
+                        <p>Aucune photo de cette figure à afficher pour le moment.</p>
+                    {% endif %}
+                </section>
 
-    {# Commentaires #}
-    <section class="trick-comments">
-        <h2>Commentaires : </h2>
-        <div class="trick-add-comment">
-            {%  include 'default/comments/form.html.twig' %}
-        </div>
-        <div class="trick-comments-list">
-            {%  include 'snowtrix/tricks/comments/list.html.twig' %}
+                {# Videos#}
+                <section class="trick-videos">
+                    <h2>Videos : </h2>
+                    {% if trick.videos is not empty %}
+                    <div class="first-trick-video">{{ trick.videos[0].embedCode | raw }}</div>
+                        {% if trick.photos|length > 1 %}
+                            <ul class="secondary-trick-videos">
+                                {% for video in trick.videos %}
+                                    {% if loop.index > 1 %}
+                                        <li>{{ video.embedCode | raw }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                    {% else %}
+                        <p>Aucune vidéo de cette figure pour le moment.</p>
+                    {% endif %}
+                </section>
+
+                {# Description #}
+                <section class="trick-infos">
+                    <h2>Informations : </h2>
+                    <ul>
+                        <li>Type(s) de figure :
+                            {% if trick.groups is not empty %}
+                                {% for trickGroup in trick.groups %}
+                                    <b>{{trickGroup.name}}</b>{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                            {% else %}
+                                Cette figure n'a pas de type particulier.
+                            {% endif %}
+
+                        </li>
+                        <li>Date de création : <i>{{ trick.createdAt |date("d/m/Y", "Europe/Paris") }}</i></li>
+                        <li>Dernière mise à jour :
+                            {% if trick.updatedAt is not null %}
+                                {{ trick.updatedAt |date("d/m/Y", "Europe/Paris") }}
+                            {% else %}
+                                Aucune modifications.
+                            {%  endif %}
+                        </li>
+                    </ul>
+                </section>
+
+                {# Commentaires #}
+                <section class="trick-comments">
+                    <h2>Commentaires : </h2>
+                    <div>
+                        {%  include 'snowtrix/tricks/comments/list.html.twig' %}
+                    </div>
+                    <div class="trick-add-comment">
+                        {%  include 'default/comments/form.html.twig' %}
+                    </div>
+                </section>
+            </div>
         </div>
     </section>
 {% endblock %}

@@ -4,6 +4,7 @@
             <li><a href="{{ path('homepage') }}">Accueil</a></li>
 
             {% if is_granted('ROLE_USER') %}
+                <li><a href="{{ path('fx_user_edit_profile') }}">Mon profil</a></li>
                 <li><a href="{{ path('fx_user_logout') }}">Déconnexion</a></li>
             {% else %}
                 <li><a href="{{ path('fx_user_login') }}">Connexion</a></li>

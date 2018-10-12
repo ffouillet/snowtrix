@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Fx\UserBundle\Repository\UserRepository")
- * @UniqueEntity(fields="email", message="Email déjà utilisé. Merci de choisir une autre adresse email.")
- * @UniqueEntity(fields="username", message="Nom d'utilisateur déjà utilisé. Merci de choisir un autre nom d'utilisateur.")
+ * @UniqueEntity(fields="email", message="Email déjà utilisé.")
+ * @UniqueEntity(fields="username", message="Nom d'utilisateur déjà utilisé.")
  */
 class User implements UserInterface, \Serializable
 {

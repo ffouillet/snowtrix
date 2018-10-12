@@ -2,14 +2,30 @@
 
 {% block body %}
 
-    <h1>Inscription</h1>
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-    {{ form_row(form.username) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+<section id="wrapper">
 
-    <button type="submit">Inscription</button>
-    {{ form_end(form) }}
+    <section class="wrapper spotlight style2 snowtrix-solo-wrapper">
+        <div class="inner snowtrix-fx-style">
+            <div class="snowtrix-fx-panel snowtrix-register">
+                <h1>Inscription</h1>
+                {{ form_start(form) }}
+                    {% if form.vars.errors|length %}
+                        <div class="error-message">
+                            Erreur(s) : </br>
+                            {{ form_errors(form) }}
+                        </div>
+
+                    {% endif %}
+
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second) }}
+
+                <button type="submit">Inscription</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+</section>
 {% endblock %}

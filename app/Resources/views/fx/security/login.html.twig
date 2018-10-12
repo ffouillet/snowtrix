@@ -2,17 +2,33 @@
 
 {% block body %}
 
-    <h1>Connexion</h1>
+    <section id="wrapper">
+        <section class="wrapper spotlight style2 snowtrix-solo-wrapper">
+            <div class="inner snowtrix-fx-style">
+                <div class="snowtrix-fx-panel">
+                    <h1>Connexion</h1>
+                    {% if error %}
 
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+                        <div class="error-message">Erreur(s) :</br>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-    {{ form_start(form) }}
-        {{ form_row(form._usernameOrEmail) }}
-        {{ form_row(form._password) }}
-        <button type="submit">Connexion</button>
-    {{ form_end(form) }}
+                    {{ form_start(form) }}
+                    {{ form_row(form._usernameOrEmail) }}
+                    {{ form_row(form._password) }}
+                    <button type="submit">Connexion</button>
+                    {{ form_end(form) }}
 
-    <a href="{{ path('fx_user_forgotten_password') }}">Mot de passe oublié ?</a>
+                    <a href="{{ path('fx_user_forgotten_password') }}">Mot de passe oublié ?</a>
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+    </section>
+
+
 {% endblock %}
