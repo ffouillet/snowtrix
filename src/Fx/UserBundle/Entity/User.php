@@ -104,10 +104,10 @@ class User implements UserInterface, \Serializable
      * @Assert\Image(
      *     mimeTypes={"image/jpeg", "image/png"},
      *     mimeTypesMessage="Format d'image incorrect, merci d'utiliser les formats d'images suivants : .png, .jpg",
-     *     minWidth=75, minWidthMessage="La largeur de votre photo de profil ne peut être inférieure à 75px",
-     *     maxWidth=150, maxWidthMessage="La largeur de votre photo de profil ne peut être supérieure à 150px",
-     *     minHeight=75, minHeightMessage="La hauteur de votre photo de profil ne peut être inférieure à 75px",
-     *     maxHeight=150, maxHeightMessage="La hauteur de votre photo de profil ne peut être supérieure à 150px")
+     *     minWidth=75, minWidthMessage="La largeur de votre photo de profil ne peut être inférieure à 75px.",
+     *     maxWidth=150, maxWidthMessage="La largeur de votre photo de profil ne peut être supérieure à 150px.",
+     *     minHeight=75, minHeightMessage="La hauteur de votre photo de profil ne peut être inférieure à 75px.",
+     *     maxHeight=150, maxHeightMessage="La hauteur de votre photo de profil ne peut être supérieure à 150px.")
      */
     private $avatar;
 

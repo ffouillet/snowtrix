@@ -57,7 +57,7 @@ class ChangePasswordFormHandler extends FormHandler {
             // Flash message : success
             $this->session->getFlashBag()->add(
                 'actionInfoSuccess',
-                'Votre mot de passe a bien été modifié !'
+                'Merci ! Votre mot de passe a bien été modifié.'
             );
 
             return true;

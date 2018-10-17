@@ -31,7 +31,17 @@ $(document).ready(function(){
         enableDesktopMenu();
     });
 
+    // Closes flash messages
+    $('.close-flash-message').on('click',function(e){
+        e.preventDefault();
+        $(this).parent().fadeOut();
+
+    });
+
     // Hide flash messages if there are.
-    $('.flash-notice').delay(5000).fadeOut();
+    setTimeout(function(){
+        $('.flash-notice').fadeOut();
+    },8000);
+
 
 });

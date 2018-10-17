@@ -59,10 +59,7 @@ class ForgottenPasswordFormHandler extends FormHandler {
             $forgottenPasswordKeyCanBeGenerated = $this->forgottenPasswordKeyGenerator->isAbleToGenerateKey($user);
 
             if ($forgottenPasswordKeyCanBeGenerated['error'] == true) {
-                $this->session->getFlashBag()->add(
-                    'actionInfoError',
-                    $forgottenPasswordKeyCanBeGenerated['errorMessage']
-                );
+                $form->addError(new FormError($forgottenPasswordKeyCanBeGenerated['errorMessage']));
 
                 return false;
             }

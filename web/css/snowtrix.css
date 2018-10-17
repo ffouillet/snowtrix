@@ -67,8 +67,12 @@ section.trick-groups .inner .trick-group
 }
 
 .snowtrix-solo-wrapper {
-    margin-top: 60px;
+    padding-top: 60px;
     padding-bottom: 30px;
+}
+
+section.snowtrix-solo-wrapper {
+    margin-top: 0px;
 }
 
 .snowtrix-solo-wrapper h1{
@@ -175,7 +179,7 @@ nav#snowtrix-menu a:hover{
     padding: 40px;
     border-radius: 5px;
     background-color: #073b58;
-    margin-bottom: 30px;
+    margin: 0 auto 30px;
 }
 
 .snowtrix-fx-panel form label,
@@ -542,12 +546,24 @@ form[name=user_profile_edit] #edit-profile-submit-button {
 }
 
 .flash-notice-error {
-    background-color: #ed1f2b;
+    background-color: #e4424c;
+}
+
+.flash-notice-message {
+    margin-right: 15px;
+}
+
+.close-flash-message {
+    font-size : 16px;
+    position: relative;
+    top: -1px;
+    font-weight: normal;
+    display: inline-block;
 }
 
 @media screen and (max-width: 1280px) {
     .snowtrix-solo-wrapper{
-        margin-top: 56px;
+        padding-top: 56px;
     }
 
 
@@ -587,7 +603,7 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     }
 
     .snowtrix-solo-wrapper{
-        margin-top: 44px;
+        padding-top: 44px;
     }
 
     ul.secondary-trick-videos {
@@ -665,6 +681,7 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     .trick-details-wrapper h1 {
         margin-bottom: 10px;
     }
+
     .trick-details-wrapper .trick-actions i {
         padding : 6px;
         border-radius: 2px;

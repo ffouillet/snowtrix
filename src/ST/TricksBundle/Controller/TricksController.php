@@ -112,7 +112,7 @@ class TricksController extends Controller
             if($trickDeleteForm->isValid()) {
                 $this->em->remove($trick);
                 $this->em->flush();
-                $this->addFlash('actionInfoSuccess','La figure '.$trick->getName().' a bien été supprimé.');
+                $this->addFlash('actionInfoSuccess','La figure "'.$trick->getName().'" a bien été supprimée.');
                 return $this->redirectToRoute('homepage');
             }
         }

@@ -90,7 +90,12 @@
                         {%  include 'snowtrix/tricks/comments/list.html.twig' %}
                     </div>
                     <div class="trick-add-comment">
-                        {%  include 'default/comments/form.html.twig' %}
+                        {% if is_granted('ROLE_USER') %}
+                            {% include 'default/comments/form.html.twig' %}
+
+                        {% else %}
+                            Vous devez être connecté pour pouvoir ajouter un commentaire sur cette figure.<br/><a href="{{ path('fx_user_login') }}">Connexion</a>
+                        {% endif %}
                     </div>
                 </section>
             </div>
