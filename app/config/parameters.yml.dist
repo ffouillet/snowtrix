@@ -29,3 +29,5 @@ parameters:
     trick_photos_default_filename: trick-photo.png
 
     homepage_route_name: snowtrix_home
+
+    register_enabled: true
