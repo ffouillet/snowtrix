@@ -30,4 +30,4 @@ parameters:
 
     homepage_route_name: snowtrix_home
 
-    register_enabled: true
+    demo_mode_enabled: false

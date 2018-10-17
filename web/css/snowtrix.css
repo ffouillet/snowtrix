@@ -561,6 +561,12 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     display: inline-block;
 }
 
+.registration-disabled-message {
+    text-align: left;
+    border-radius: 5px;
+    line-height: 25px;
+}
+
 @media screen and (max-width: 1280px) {
     .snowtrix-solo-wrapper{
         padding-top: 56px;
