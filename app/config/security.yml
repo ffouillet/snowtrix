@@ -26,6 +26,7 @@ security:
             logout:
                 path:   /logout
                 target: /
+                success_handler: fx.userbundle.user_logout_handler
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

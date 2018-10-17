@@ -89,7 +89,7 @@ class TricksController extends Controller
 
         // If submission has been done with success
         if($trickEditFormHandler->handle($request, $trickForm)) {
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('trick_view', ['slug' => $trick->getSlug()]);
         }
 
         return $this->render('snowtrix/tricks/edit.html.twig',

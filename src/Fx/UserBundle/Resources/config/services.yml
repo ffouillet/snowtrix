@@ -68,7 +68,7 @@ services:
         - '%user_avatar_default_avatar_filename%'
         - '@fx.userbundle.user_avatar_uploader'
         tags:
-        - {name: doctrine.event_subscriber }
+        - { name: doctrine.event_subscriber }
 
     fx.userbundle.user_avatar_uploader:
         class: Fx\UserBundle\Service\UserAvatarUploader
@@ -76,6 +76,13 @@ services:
             - '%user_avatar_upload_dir%'
             - '%user_avatar_web_dir%'
     Fx\UserBundle\Service\UserAvatarUploader: '@fx.userbundle.user_avatar_uploader'
+
+    fx.userbundle.user_logout_handler:
+        class: Fx\UserBundle\Service\UserLogoutHandler
+        arguments:
+            - '@router'
+            - '@session'
+    Fx\UserBundle\Service\UserLogoutHandler: '@fx.userbundle.user_logout_handler'
 
     #Fixtures
     Fx\UserBundle\DataFixtures\UserFixtures:

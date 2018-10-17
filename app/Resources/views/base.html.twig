@@ -17,23 +17,14 @@
 
         <div id="page-wrapper">
 
-            {% for message in app.flashes('actionInfoError') %}
-                <div class="flash-notice flash-notice-error">
-                    {{ message | raw }}
-                </div>
-            {% endfor %}
-
-            {% for message in app.flashes('actionInfoSuccess') %}
-                <div class="flash-notice flash-notice-success">
-                    {{ message | raw }}
-                </div>
-            {% endfor %}
-
             <header id="header">
                 <h1><a href="{{ path('homepage') }}"><i class="fa fa-snowflake-o"></i>SnowTrix</a></h1>
                 <nav id="enable-nav">
                     <a href="#menu">Menu</a>
                 </nav>
+
+                {% include 'flash_messages.html.twig' %}
+
             </header>
 
             {% include 'snowtrix/menu.html.twig' %}

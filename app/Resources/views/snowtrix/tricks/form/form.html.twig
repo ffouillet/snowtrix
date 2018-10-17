@@ -14,8 +14,15 @@
 {% macro trick_video_prototype(trickVideoForm) %}
 
     {{ form_label(trickVideoForm.embedCode) }}
+
     <div class="form-error">
-        {{ form_errors(trickVideoForm.embedCode) }}
+        {% if trickVideoForm.embedCode.vars.valid == false %}
+            <div class="error-message">
+                Erreur(s) : </br>
+                {{ form_errors(trickVideoForm.embedCode) }}
+            </div>
+
+        {% endif %}
     </div>
     {{ form_widget(trickVideoForm.embedCode) }}
 
@@ -28,7 +35,18 @@
 {% endfor %}
 
     {{ form_start(trickForm) }}
-    {{ form_errors(trickForm) }}
+
+        {% if trickForm.vars.errors|length %}
+            <div class="error-message">
+                Erreur(s) : </br>
+                {{ form_errors(trickForm) }}
+            </div>
+        {% elseif trickForm.vars.errors|length == 0 and trickForm.vars.valid != true %}
+            <div class="error-message">
+                Erreur(s) : </br>
+                Impossible de valider vos modifications, merci de vérifier les informations saisies.
+            </div>
+        {% endif %}
 
     {{ form_row(trickForm.name) }}
     {{ form_row(trickForm.description) }}
@@ -39,7 +57,7 @@
 </div>
 
 {# Photos #}
-<div>
+<div class="trick-form-photos">
 
     {{ form_label(trickForm.photos) }}
     {{ form_errors(trickForm.photos) }}
@@ -53,9 +71,8 @@
     <ul class="trick-relation-collection" id="trick-photos" data-prototype="{{ _self.trick_photo_prototype(trickForm.photos.vars.prototype)|e('html_attr') }}">
 
         {% for trickPhoto in trickForm.photos %}
-            <li>
+            <li class="trick-photos-form-element">
                 {{ _self.trick_photo_prototype(trickPhoto) }}
-
             </li>
         {% endfor %}
 
@@ -63,7 +80,7 @@
 </div>
 
 {# Videos #}
-<div>
+<div class="trick-form-videos">
 
     {{ form_label(trickForm.videos) }}
 
@@ -73,7 +90,7 @@
     </ul>
     <ul class="trick-relation-collection" id="trick-videos" data-prototype="{{ _self.trick_video_prototype(trickForm.videos.vars.prototype)|e('html_attr') }}">
         {% for trickVideo in trickForm.videos %}
-            <li>
+            <li class="trick-videos-form-element">
                 {{ _self.trick_video_prototype(trickVideo) }}
             </li>
         {% endfor %}

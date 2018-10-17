@@ -23,7 +23,7 @@
                 {# Photos #}
                 <section class="trick-photos">
                     {% if trick.photos is not empty %}
-                        <img src="{{ asset(trick.photos[0].photoUrl) }}" alt="Une photo de la figure {{ trick.name }}">
+                        <img class="first-trick-photo" src="{{ asset(trick.photos[0].photoUrl) }}" alt="Une photo de la figure {{ trick.name }}">
                         {% if trick.photos|length > 1 %}
                             <ul class="secondary-trick-photos">
                                 {% for trickPhoto in trick.photos %}
@@ -75,7 +75,7 @@
                         <li>Date de création : <i>{{ trick.createdAt |date("d/m/Y", "Europe/Paris") }}</i></li>
                         <li>Dernière mise à jour :
                             {% if trick.updatedAt is not null %}
-                                {{ trick.updatedAt |date("d/m/Y", "Europe/Paris") }}
+                                <i>{{ trick.updatedAt |date("d/m/Y", "Europe/Paris") }}</i>
                             {% else %}
                                 Aucune modifications.
                             {%  endif %}

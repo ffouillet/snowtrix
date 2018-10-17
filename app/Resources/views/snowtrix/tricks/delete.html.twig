@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="wrapper spotlight style2 snowtrix-solo-wrapper trick-details-wrapper">
+    <section class="wrapper spotlight style2 snowtrix-solo-wrapper">
         <div class="inner snowtrix-fx-style">
             <div class="snowtrix-fx-panel">
 
@@ -11,9 +11,10 @@
 
             {{ form_start(formDeleteTrick) }}
 
+            {{ form_widget(formDeleteTrick.deleteTrick) }}
+
             <a class="delete-trick-confirmation-link" href="{{ path('homepage') }}">Non, annuler la suppression</a>
 
-            {{ form_widget(formDeleteTrick.deleteTrick) }}
             {{ form_end(formDeleteTrick) }}
             </div>
         </div>

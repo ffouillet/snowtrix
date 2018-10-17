@@ -31,4 +31,7 @@ $(document).ready(function(){
         enableDesktopMenu();
     });
 
+    // Hide flash messages if there are.
+    $('.flash-notice').delay(5000).fadeOut();
+
 });

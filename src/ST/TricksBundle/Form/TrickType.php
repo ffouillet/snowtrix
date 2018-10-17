@@ -25,13 +25,15 @@ class TrickType extends AbstractType
             ->add('description', TextareaType::class,
                 ['required' => true,
                     'label' => 'Description de la figure : ',
-                    'error_bubbling' => true])
+                    'error_bubbling' => true,
+                    'attr' => ['class' => 'trick-form-description']])
             ->add('groups', EntityType::class,
                 ['class' => TrickGroup::class,
                     'required' => true,
                     'label' => 'Groupes de la figure : ',
                     'choice_label' => 'name',
-                    'multiple' => true])
+                    'multiple' => true,
+                    'attr' => ['class' => 'select-trick-group']])
             ->add('photos', CollectionType::class,
                 ['label' => 'Photos de la figure : ',
                     'entry_type' => TrickPhotoType::class,

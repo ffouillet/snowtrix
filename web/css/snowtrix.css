@@ -30,6 +30,7 @@ section.trick-groups .inner .trick-group
     border-radius: 5px;
     margin : 0px 20px 25px;
     width : 43%;
+    position: relative;
 }
 
 .trick-group-list li:hover {
@@ -46,6 +47,9 @@ section.trick-groups .inner .trick-group
 
 .trick-actions {
     text-align: right;
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
 }
 
 .trick-actions i {
@@ -91,14 +95,14 @@ section.trick-groups .inner .trick-group
 .error-message {
     border-radius: 5px;
     color : white;
-    background-color: #ed1f2b;
+    background-color: #e4424c;
     padding : 15px;
     margin-bottom: 20px;
     text-align: left;
 }
 
 .error-message ul {
-    margin-bottom: 1em;
+    margin-bottom: 10px;
 }
 
 footer {
@@ -185,7 +189,7 @@ nav#snowtrix-menu a:hover{
     max-width: 900px;
 }
 
-.trick-photos img:nth-of-type(1) {
+.first-trick-photo {
     width: 100%;
 }
 
@@ -219,7 +223,7 @@ nav#snowtrix-menu a:hover{
 
 .trick-details-wrapper .trick-actions i {
     padding : 6px;
-    border-radius: 2px;
+    border-radius: 5px;
     background-color: #0a4566;
     margin-left : 3px;
 }
@@ -286,6 +290,16 @@ ul.secondary-trick-photos{
     width: 100%;
     display: flex;
     margin-bottom: 5px;
+    max-height: 230px;
+}
+
+ul.secondary-trick-photos li{
+    max-width: 100%;
+}
+
+ul.secondary-trick-photos li img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 ul.secondary-trick-videos {
@@ -327,7 +341,7 @@ form[name=user_profile_edit] button[type=submit] {
     background-color: #1c4c67;
     border-radius: 5px;
     padding-bottom: 5px;
-    padding-top: 5px;
+    padding-top: 8px;
 }
 
 .comments-pagination div:first-of-type {
@@ -371,7 +385,15 @@ form[name=user_profile_edit] button[type=submit] {
     text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
-    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.snowtrix-add-edit-trick {
+    width: 100%;
+}
+
+.snowtrix-add-edit-trick {
+    height: 100%;
 }
 
 #form_deleteTrick {
@@ -382,11 +404,153 @@ form[name=user_profile_edit] button[type=submit] {
     background-color: rgba(255, 255, 255, 0.025);
 }
 
+.snowtrix-add-edit-trick select{
+    background: transparent;
+}
+
+.snowtrix-add-edit-trick select option {
+    background: transparent;
+}
+
+.select-trick-group {
+    max-width: 50%;
+}
+
+.trick-form-photos,
+.trick-form-videos{
+    text-align: left !important;
+}
+
+.trick-form-description {
+    max-width: 100%;
+}
+
+form div.trick-form-photos ul:first-of-type,
+form div.trick-form-videos ul:first-of-type{
+    margin-bottom: 10px;
+}
+
+form ul#trick-photos,
+form ul#trick-videos{
+    list-style-type: none;
+}
+
+form ul#trick-photos li input{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+form ul#trick-photos li img{
+    display: block;
+    margin-bottom: 15px;
+}
+
+form .fa-plus-circle,
+form .fa-trash{
+    margin-right: 7px;
+    font-size: 25px;
+}
+
+li.add-trick-photos,
+li.add-trick-videos{
+    padding-left: 0px;
+    margin-top: 20px;
+}
+
+.add_trick-photos_link,
+.add_trick-videos_link{
+    display: flex;
+    align-items: center;
+}
+
+.remove-element-button {
+    display: flex !important;
+    align-items: center;
+    margin-top: 5px;
+}
+
+
+li.trick-photos-form-element,
+li.trick-videos-form-element {
+    background-color: #1c4c67;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top : 10px;
+    margin-bottom : 15px;
+}
+
+form ul#trick-photos li:not(.add-trick-photos) button{
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+form ul#trick-videos li:not(.add-trick-videos) button {
+    margin-top : 15px;
+}
+
+.user-infos {
+    text-align : left;
+}
+
+nav#menu ul {
+    list-style-type: none;
+}
+
+nav#menu ul li {
+    padding-left: 0px;
+}
+
+a  {
+    outline: 0;
+}
+
+form[name=user_profile_edit] {
+    text-align: left;
+}
+
+form[name=user_profile_edit] .edit-profile-photo-block p {
+    margin-bottom: 10px;
+}
+
+form[name=user_profile_edit] #edit-profile-submit-button {
+    display: block;
+    margin : 0 auto;
+}
+
+.trick-group-list li h4 {
+    margin-bottom: 24px;
+}
+
+.flash-notice {
+    margin-top: 10px;
+    display: inline-block;
+    border-radius: 5px;
+    padding-left : 15px;
+    padding-right: 15px;
+    font-weight: bold;
+    line-height: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.flash-notice i {
+    margin-right: 3px;
+}
+
+.flash-notice-success {
+    background-color: #008549;
+}
+
+.flash-notice-error {
+    background-color: #ed1f2b;
+}
 
 @media screen and (max-width: 1280px) {
-    .snowtrix-solo-wrapper {
+    .snowtrix-solo-wrapper{
         margin-top: 56px;
     }
+
+
 }
 
 @media screen and (max-width: 980px) {
@@ -422,7 +586,7 @@ form[name=user_profile_edit] button[type=submit] {
         margin: 2.5em 0 0;
     }
 
-    .snowtrix-solo-wrapper {
+    .snowtrix-solo-wrapper{
         margin-top: 44px;
     }
 
@@ -473,10 +637,19 @@ form[name=user_profile_edit] button[type=submit] {
         padding-right: 20px;
     }
 
-    form[name=change_password] button[type=submit] {
+    form[name=change_password] button[type=submit]{
         width: 100%;
         font-size: 0.6em;
     }
+
+    .trick-photos-form-element button,
+    .trick-videos-form-element button,
+    #trick_edit_submit,
+    #trick_add_submit{
+        font-size: 0.6em;
+        width: 100%;
+    }
+
     .trick-details-wrapper .trick-actions-helper {
         text-align: center;
         display: inline-block;
@@ -501,6 +674,7 @@ form[name=user_profile_edit] button[type=submit] {
 
     ul.secondary-trick-photos {
         flex-wrap: wrap;
+        max-height: none;
     }
     ul.secondary-trick-photos li {
         padding-left: 0px;
@@ -509,6 +683,16 @@ form[name=user_profile_edit] button[type=submit] {
     ul.secondary-trick-videos li {
         max-width: 100%;
         padding-left: 0px;
+    }
+
+    .trick-actions {
+        font-size : 14px;
+    }
+
+    .flash-notice {
+        line-height: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
 
 

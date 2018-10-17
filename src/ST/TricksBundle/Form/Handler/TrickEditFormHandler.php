@@ -62,7 +62,7 @@ class TrickEditFormHandler extends FormHandler
 
             $this->session->getFlashBag()->add(
                 'actionInfoSuccess',
-                'Merci ! La figure "'.$currentTrick->getName().'" a été modifiée avec succès .'
+                'Merci ! La figure "'.$currentTrick->getName().'" a été modifiée avec succès.'
             );
 
             return true;

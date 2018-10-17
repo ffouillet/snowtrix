@@ -7,7 +7,23 @@
         <div class="inner snowtrix-fx-style">
             <h1>Modification de votre profil</h1>
 
+            {% if editProfileForm.vars.errors|length or changePasswordForm.vars.errors|length %}
+                {% if editProfileForm.vars.errors|length %}
+                    <div class="error-message">
+                        Erreur(s) : </br>
+                        Impossible d'effectuer les modifications demandées, merci de vérifier les informations saisies.</br>
+                    </div>
+                {% endif %}
+            {% endif %}
             <div class="snowtrix-fx-panel">
+
+                <h2>Informations</h2>
+                <div class="user-infos">
+                    <p>Nom d'utilisateur : <b>{{ app.user.username }}</b><br/>
+                        Adresse email : <b>{{ app.user.email }}</b>
+                    <p>
+                </div>
+
                 <h2>Photo de profil </h2>
 
                 {{ form_start(editProfileForm) }}
@@ -24,9 +40,12 @@
                     <img src="{{ user_default_avatar_src }}" alt="Avatar de {{ app.user.username }}"/>
                 {% endif %}
 
-                {{ form_row(editProfileForm.avatar) }}
+                <div class="edit-profile-photo-block">
+                    <p>Sélectionnez une nouvelle photo de profil :</p>
+                    {{ form_widget(editProfileForm.avatar) }}
+                </div>
 
-                <button type="submit">Modifier le profil</button>
+                <button type="submit" id="edit-profile-submit-button">Modifier le profil</button>
                 {{ form_end(editProfileForm) }}
             </div>
 

@@ -112,7 +112,9 @@ jQuery(document).ready(function() {
         $collectionHolder.data('index', index + 1);
 
         // Display the form in the page in an li, before the "Add a tag" link li
-        var $newFormLi = $('<li></li>').append(newForm);
+        var newLinkLiClass = $($collectionHolder).attr('id') + '-form-element';
+
+        var $newFormLi = $('<li class="'+newLinkLiClass+'"></li>').append(newForm);
         $newLinkLi.before($newFormLi);
 
         addRemoveButtonToCollectionElement($newFormLi);
@@ -143,7 +145,7 @@ jQuery(document).ready(function() {
                 console.log('Unable to find collectionHolder for removeElementButtonText definition');
         }
 
-        var $removeFormButtonHtml = '<button type="button">'+$removeElementButtonText+'</button>';
+        var $removeFormButtonHtml = '<button type="button" class="remove-element-button"><i class="fa fa-trash"></i>'+$removeElementButtonText+'</button>';
         var $removeFormButton = $($removeFormButtonHtml);
 
         $tagFormLi.append($removeFormButton);
@@ -174,7 +176,7 @@ jQuery(document).ready(function() {
                 console.log('Unable to find the collection holder identifier.');
         }
 
-        var $addElementButtonHtml = '<button type="button" class="add_'+$collectionHolderId+'_link">'+$addElementButtonText+'</button>';
+        var $addElementButtonHtml = '<button type="button" class="add_'+$collectionHolderId+'_link"><i class="fa fa-plus-circle" aria-hidden="true"></i>'+$addElementButtonText+'</button>';
         var $addElementButton = $($addElementButtonHtml);
         var $newElementLinkLiHtml = '<li class="add-'+$collectionHolderId+'"></li>';
         var $newElementLinkLi = $($newElementLinkLiHtml).append($addElementButton);
@@ -185,7 +187,7 @@ jQuery(document).ready(function() {
         // add a delete link to all of the existing tag form li elements
         $collectionHolder.find('li:not(.add-'+$collectionHolderId+')').each(function() {
             // Do not add delete button to form errors.
-            if($(this).parent().parent().attr('class') != 'form-error') {
+            if($(this).parent().parent().parent().attr('class') != 'form-error') {
                 addRemoveButtonToCollectionElement($(this));
             }
         });
