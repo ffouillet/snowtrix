@@ -20,7 +20,6 @@ services:
     fx.userbundle.eventlister.redirect_user:
         class: Fx\UserBundle\EventListener\RedirectUserListener
         arguments:
-            - "@security.token_storage"
             - "@security.authorization_checker"
             - "@router"
         tags:
@@ -36,7 +35,7 @@ services:
         class: Fx\UserBundle\Doctrine\User\HashPasswordListener
         autowire: true
         tags:
-            - {name: doctrine.event_subscriber }
+            - { name: doctrine.event_subscriber }
 
     fx.userbundle.forgotten_password_key_generator:
         class: Fx\UserBundle\Service\ForgottenPasswordKeyGenerator

@@ -6,6 +6,10 @@ snowtrix_tricks:
     resource: "@STTricksBundle/Controller/TricksController.php"
     type:     annotation
 
+demo:
+    resource: "@CoreBundle/Controller/DemoController.php"
+    type:     annotation
+
 security:
   resource: "@FxUserBundle/Controller/SecurityController.php"
   type:     annotation

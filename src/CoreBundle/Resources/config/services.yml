@@ -10,8 +10,23 @@ services:
 
     CoreBundle\Service\:
         resource: '../../Service/*'
-        exclude: '../../Service/FileUploader.php'
+        exclude: '../../Service/{FileUploader,RedirectUserDemoMode}.php'
         autowire: true
         autoconfigure: true
+
+    corebundle.service.redirect_user_demo_mode:
+        class: CoreBundle\Service\RedirectUserDemoMode
+        arguments:
+            - "%demo_mode_enabled%"
+            - "%demo_mode_disabled_actions%"
+            - "%demo_mode_disabled_actions_route_to_redirect_to%"
+
+    corebundle.eventlister.redirect_user_demo_mode_listener:
+        class: CoreBundle\EventListener\RedirectUserDemoModeListener
+        arguments:
+        - "@router"
+        - "@corebundle.service.redirect_user_demo_mode"
+        tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
 
