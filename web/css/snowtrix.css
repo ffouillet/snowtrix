@@ -1,3 +1,23 @@
+html,
+body,
+#page-wrapper {
+    height: 100%;
+}
+
+#page-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    flex-grow: 1;
+    margin-bottom: 0px;
+}
+
+footer.main-footer {
+    flex-shrink: 0;
+}
+
 .trick-thumbnail {
     width : 100%;
 }
