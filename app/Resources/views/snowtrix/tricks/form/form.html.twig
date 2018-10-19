@@ -71,9 +71,11 @@
     <ul class="trick-relation-collection" id="trick-photos" data-prototype="{{ _self.trick_photo_prototype(trickForm.photos.vars.prototype)|e('html_attr') }}">
 
         {% for trickPhoto in trickForm.photos %}
-            <li class="trick-photos-form-element">
-                {{ _self.trick_photo_prototype(trickPhoto) }}
-            </li>
+            {% if trickPhoto.vars.data.photoUrl != "" %}
+                <li class="trick-photos-form-element">
+                    {{ _self.trick_photo_prototype(trickPhoto) }}
+                </li>
+            {% endif %}
         {% endfor %}
 
     </ul>

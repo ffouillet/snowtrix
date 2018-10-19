@@ -388,7 +388,8 @@ form[name=user_profile_edit] button[type=submit] {
     justify-content: center;
 }
 
-.delete-trick-confirmation-link {
+.delete-trick-confirmation-link,
+.add-trick-button {
     transition: background-color 0.2s ease-in-out;
     background-color: transparent;
     border-radius: 5px;
@@ -411,6 +412,17 @@ form[name=user_profile_edit] button[type=submit] {
     margin-left: 20px;
 }
 
+.add-trick-button i.fa-plus-circle {
+    margin-right: 7px;
+    font-size: 20px;
+}
+
+.add-trick-button {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 .snowtrix-add-edit-trick {
     width: 100%;
 }
@@ -423,7 +435,8 @@ form[name=user_profile_edit] button[type=submit] {
     background-color: #ed1f2b;
 }
 
-.delete-trick-confirmation-link:hover {
+.delete-trick-confirmation-link:hover,
+.add-trick-button:hover{
     background-color: rgba(255, 255, 255, 0.025);
 }
 
@@ -500,6 +513,10 @@ li.trick-videos-form-element {
     padding: 20px;
     margin-top : 10px;
     margin-bottom : 15px;
+}
+
+.trick-photos-form-element .trick-thumbnail {
+    max-width: 400px;
 }
 
 form ul#trick-photos li:not(.add-trick-photos) button{
@@ -584,6 +601,10 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     text-align: left;
     border-radius: 5px;
     line-height: 25px;
+}
+
+.snowtrix-delete-trick-confirmation form{
+    margin-bottom: 10px;
 }
 
 @media screen and (max-width: 1280px) {

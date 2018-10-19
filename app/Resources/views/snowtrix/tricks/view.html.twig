@@ -43,7 +43,7 @@
                     <h2>Videos : </h2>
                     {% if trick.videos is not empty %}
                     <div class="first-trick-video">{{ trick.videos[0].embedCode | raw }}</div>
-                        {% if trick.photos|length > 1 %}
+                        {% if trick.videos|length > 1 %}
                             <ul class="secondary-trick-videos">
                                 {% for video in trick.videos %}
                                     {% if loop.index > 1 %}

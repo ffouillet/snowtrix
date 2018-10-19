@@ -102,9 +102,11 @@ class TrickEditFormHandler extends FormHandler
             if($photo->getId() == null && $photo->getPhoto() instanceof UploadedFile) {
                 $photo->setTrick($currentTrick);
                 $this->em->persist($photo);
+            } else if($photo->getId() == null && $photo->getPhoto() == null){
+                // We will remove the photo because it means users clicked on "Add a photo link" but didn't choose the file.
+                $currentTrick->getPhotos()->removeElement($photo);
             }
         }
-
     }
 
     private function handleTrickVideosUpdate($currentTrick, $originalTrickVideos) {

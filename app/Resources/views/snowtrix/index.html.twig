@@ -9,7 +9,6 @@
                 <h2>SnowTrix</h2>
                 <p>La communauté pour découvrir le snowboard et ses figures</p>
             </div>
-
         </div>
     </section>
 
@@ -34,6 +33,9 @@
         <section id="2" class="wrapper alt spotlight style2 trick-groups">
             <div class="inner">
                 <h2 class="major">Liste des figures</h2>
+                {% if is_granted('ROLE_USER') %}
+                    <a class="add-trick-button" href="{{ path('trick_add') }}"><i class="fa fa-plus-circle"></i>Ajouter une nouvelle figure</a>
+                {% endif %}
 
                     {% if tricksGroups is not empty %}
 

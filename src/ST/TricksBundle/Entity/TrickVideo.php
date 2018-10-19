@@ -26,6 +26,7 @@ class TrickVideo
      * @var string
      *
      * @ORM\Column(name="embedCode", type="string", length=255)
+     * @Assert\NotBlank(message="Le code embed de la vidéo ne peut être vide.")
      * @Assert\Regex(
      *     pattern="/^<iframe.*><\/iframe>$/",
      *     message="Format de code embed de la vidéo incorrect. Merci de vous réferer à l'aide en cas de besoin."
