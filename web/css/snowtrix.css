@@ -788,7 +788,11 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     }
 
     li.trick-comment .content {
-        padding : 15px 10px 15px;
+        padding : 5px 10px 5px;
+    }
+
+    .snowboard-about-image {
+        margin-bottom: 40px !important;
     }
 
 
