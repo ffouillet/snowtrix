@@ -39,6 +39,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         user_default_avatar_src: '/%user_avatar_web_dir%/%user_avatar_default_avatar_filename%'
+        demo_mode_enabled: '%demo_mode_enabled%'
 
 # Doctrine Configuration
 doctrine:

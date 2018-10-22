@@ -4,8 +4,18 @@
 
     <section class="wrapper spotlight style2 snowtrix-solo-wrapper">
         <div class="inner snowtrix-fx-style">
-            <div class="snowtrix-fx-panel">
+            <div class="snowtrix-fx-panel snowtrix-login-panel">
                 <h1>Connexion</h1>
+
+                {% if demo_mode_enabled == true %}
+                    <p id="demo-mode-login-password-couple">
+                        <u>Mode Demo : </u><br/>
+                        Nom d'utilisateur : <b>Demo</b><br/>
+                        Mot de passe : <b>ocdemo</b>
+                    </p>
+                {% endif %}
+
+
                 {% if error %}
                     <div class="error-message">Erreur(s) :</br>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
@@ -17,6 +27,7 @@
                 {{ form_end(form) }}
 
                 <a href="{{ path('fx_user_forgotten_password') }}">Mot de passe oublié ?</a>
+
             </div>
         </div>
     </section>
