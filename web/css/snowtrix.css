@@ -41,6 +41,7 @@ section.trick-groups .inner .trick-group
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding-left: 0px;
 }
 
 .trick-group-list li {
@@ -278,6 +279,7 @@ nav#snowtrix-menu a:hover{
 
 .trick-comments-list {
     text-align: left;
+    padding-left: 0px;
 }
 
 .trick-comments-list li {
@@ -286,6 +288,7 @@ nav#snowtrix-menu a:hover{
 
 .trick-comments-list li .content {
     padding-left: 20px;
+    padding-right: 20px;
 }
 
 .trick-comment {
@@ -674,12 +677,23 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     .trick-group-list li,
     .trick-group-list.grabs li
     {
-        width : 80%;
+        width : 100%;
     }
 
     .trick-thumbnail {
         max-width: 100%;
     }
+
+    .snowtrix-fx-panel,
+    .inner.snowtrix-fx-style {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .trick-videos iframe {
+        height: 300px;
+    }
+
 }
 
 @media screen and (max-width: 480px) {
@@ -761,6 +775,24 @@ form[name=user_profile_edit] #edit-profile-submit-button {
         line-height: 20px;
         padding-top: 8px;
         padding-bottom: 8px;
+    }
+
+    .trick-videos iframe {
+        height: 200px;
+    }
+
+    li.trick-comment {
+        display: flex;
+        flex-direction: column;
+        padding-right: 0.5em;
+    }
+
+    li.trick-comment .content {
+        padding : 5px 10px 5px;
+    }
+
+    .snowboard-about-image {
+        margin-bottom: 40px !important;
     }
 
 
