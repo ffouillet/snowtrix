@@ -28,6 +28,7 @@ class EditProfileFormHandler extends FormHandler {
 
         if($form->isSubmitted() && $form->isValid()) {
 
+            $this->session->getFlashBag()->add('actionInfoSuccess', 'Merci! Votre profil a bien été modifié.');
             $this->em->flush();
 
             return true;

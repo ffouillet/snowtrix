@@ -2,9 +2,18 @@
 
 {% block body %}
 
-    <h1>Ajouter une nouvelle figure </h1>
+    <section id="wrapper">
+        <section class="wrapper spotlight style2 snowtrix-solo-wrapper">
+            <div class="inner snowtrix-fx-style">
+                <div class="snowtrix-fx-panel snowtrix-add-edit-trick">
+                    <h1>Ajouter une nouvelle figure </h1>
 
-    {% include 'snowtrix/tricks/form/form.html.twig' %}
+                    {% include 'snowtrix/tricks/form/form.html.twig' %}
+                </div>
+            </div>
+        </section>
+    </section>
+
 {% endblock %}
 
 {% block javascripts %}

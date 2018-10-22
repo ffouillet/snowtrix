@@ -39,9 +39,8 @@ class CommentFormHandler
             $this->em->flush();
 
             // Add success flash message
-            $this->session->getFlashBag()->add('addComment','Merci ! Votre commentaire a bien été ajouté.');
+            $this->session->getFlashBag()->add('actionInfoSuccess','Merci ! Votre commentaire a bien été ajouté.');
 
-            dump($this->session);
             return true;
         }
 

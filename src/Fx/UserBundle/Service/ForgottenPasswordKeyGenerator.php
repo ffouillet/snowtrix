@@ -58,7 +58,7 @@ class ForgottenPasswordKeyGenerator {
 
         $timeToWaitBeforeNewRequestInMinutes = floor($totalTimeToWaitBeforeNewRequestInSeconds / 60);
 
-        $message = "Impossible de soumettre une demande de nouveau mot de passe car une autre demande est déjà en cours. <br/>";
+        $message = "Impossible de soumettre une demande de nouveau mot de passe car une autre demande est déjà en cours. ";
         $message.= "Merci de patienter ";
 
         // Minutes to display in flash message

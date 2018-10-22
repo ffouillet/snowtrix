@@ -29,3 +29,19 @@ parameters:
     trick_photos_default_filename: trick-photo.png
 
     homepage_route_name: snowtrix_home
+
+    demo_mode_enabled: false
+
+    # Array of disabled actions in demo mode (Action:METHOD)
+    demo_mode_disabled_actions:
+        trick_add: POST
+        trick_edit: POST
+        trick_view: POST
+        fx_user_edit_profile:
+            - POST
+        trick_delete: ANY
+        fx_user_register: POST
+        fx_user_forgotten_password: ANY
+
+    demo_mode_disabled_actions_route_to_redirect_to: demo_mode
+

@@ -36,11 +36,6 @@ class ChangePasswordFormHandler extends FormHandler {
         $newPassword = $request->request->get('change_password')['plainPassword']['first'];
         $newPasswordConfirmation = $request->request->get('change_password')['plainPassword']['second'];
 
-        // We won't normally fall in that case
-        if($newPassword != $newPasswordConfirmation) {
-            throw new \InvalidArgumentException("Erreur dans la vérification du nouveau mot de passe et sa confirmation");
-        }
-
         // validate newPlainPassword with User's plainPassword constraints.
         $userPlainPasswordConstraints = $classMetadata->getPropertyMetadata('plainPassword')[0]->getConstraints();
         $violations = $this->validator->validate($newPassword,$userPlainPasswordConstraints,array('change_password'));
@@ -62,7 +57,7 @@ class ChangePasswordFormHandler extends FormHandler {
             // Flash message : success
             $this->session->getFlashBag()->add(
                 'actionInfoSuccess',
-                'Votre mot de passe a bien été modifié !'
+                'Merci ! Votre mot de passe a bien été modifié.'
             );
 
             return true;

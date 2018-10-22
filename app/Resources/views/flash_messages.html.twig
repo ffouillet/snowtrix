@@ -1,0 +1,26 @@
+{% macro flash_message_success(message) %}
+    <div class="flash-notice flash-notice-success">
+        <i class="fa fa-check"></i>
+        <span class="flash-notice-message">{{ message | raw }}</span>
+        <a href="#" class="close-flash-message"><i class="fa fa-times"></i>Fermer</a>
+    </div>
+{% endmacro %}
+
+{# Success flash message #}
+{% for message in app.flashes('actionInfoSuccess') %}
+    {{ _self.flash_message_success(message) }}
+{% endfor %}
+
+{# Error flash message #}
+{% for message in app.flashes('actionInfoError') %}
+    <div class="flash-notice flash-notice-error">
+        <i class="fa fa-exclamation-triangle"></i>
+        <span class="flash-notice-message">{{ message | raw }}</span>
+        <a href="#" class="close-flash-message"><i class="fa fa-times"></i>Fermer</a>
+    </div>
+{% endfor %}
+
+{# Logout success flash message #}
+{% if app.request.get('logout') == 'success' %}
+    {{ _self.flash_message_success('Merci ! Vous êtes à présent deconnecté.') }}
+{% endif %}

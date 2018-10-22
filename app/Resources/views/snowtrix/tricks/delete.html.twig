@@ -1,15 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <section class="wrapper spotlight style2 snowtrix-solo-wrapper">
+        <div class="inner snowtrix-fx-style">
+            <div class="snowtrix-fx-panel snowtrix-delete-trick-confirmation">
 
-    <h1>Supprimer la figure : {{ trick.name }} </h1>
+            <h1>Supprimer la figure : {{ trick.name }} </h1>
 
-    <p>Êtes vous sûr de bien vouloir supprimer la figure "{{ trick.name }}"?</p>
+            <p>Êtes vous sûr de bien vouloir supprimer la figure "{{ trick.name }}"?</p>
 
-    {{ form_start(formDeleteTrick) }}
-    {{ form_widget(formDeleteTrick.deleteTrick) }}
-    <a href="{{ path('homepage') }}">Non, annuler la suppression</a>
-    {{ form_end(formDeleteTrick) }}
+            {{ form_start(formDeleteTrick) }}
+
+            {{ form_widget(formDeleteTrick.deleteTrick) }}
+
+            <a class="delete-trick-confirmation-link" href="{{ path('homepage') }}">Non, annuler la suppression</a>
+
+            {{ form_end(formDeleteTrick) }}
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
 

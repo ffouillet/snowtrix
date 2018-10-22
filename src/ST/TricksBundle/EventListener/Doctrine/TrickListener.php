@@ -40,6 +40,10 @@ class TrickListener implements EventSubscriber
 
         $this->updateSlug($trick);
 
+        if ($trick instanceof Trick) {
+            $trick->setUpdatedAt(new \DateTime());
+        }
+
     }
 
     public function updateSlug($trick) {

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section class="wrapper spotlight style2 snowtrix-solo-wrapper">
+        <div class="inner snowtrix-fx-style">
+            <div class="snowtrix-fx-panel snowtrix-demo-panel">
+
+                <h1>Mode démonstration</h1>
+
+                <p class="registration-disabled-message">
+                    Merci pour l'intérêt que vous portez à <b>Snowtrix</b> !<br/>
+                    Le site étant une <i>version de <b>démonstration</b></i>, l'action que vous souhaitez effectuer n'est pas activée.
+                </p>
+
+                <a href="{{ app.request.headers.get('referer') }}">Revenir à la page précedente</a>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

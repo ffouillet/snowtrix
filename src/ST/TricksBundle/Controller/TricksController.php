@@ -45,8 +45,7 @@ class TricksController extends Controller
         $commentForm = $this->createForm(CommentType::class, $trickComment);
 
         if ($commentFormhandler->handle($request, $commentForm, $this->getUser())) {
-            // Empty form data after submission
-            $commentForm = $this->createForm(CommentType::class, new TrickComment());
+            return $this->redirectToRoute('trick_view', ['slug' => $trick->getSlug()]);
         }
 
         // Paginated comments
@@ -90,7 +89,7 @@ class TricksController extends Controller
 
         // If submission has been done with success
         if($trickEditFormHandler->handle($request, $trickForm)) {
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('trick_view', ['slug' => $trick->getSlug()]);
         }
 
         return $this->render('snowtrix/tricks/edit.html.twig',
@@ -113,7 +112,7 @@ class TricksController extends Controller
             if($trickDeleteForm->isValid()) {
                 $this->em->remove($trick);
                 $this->em->flush();
-                $this->addFlash('actionInfoSuccess','La figure '.$trick->getName().' a bien été supprimé.');
+                $this->addFlash('actionInfoSuccess','La figure "'.$trick->getName().'" a bien été supprimée.');
                 return $this->redirectToRoute('homepage');
             }
         }

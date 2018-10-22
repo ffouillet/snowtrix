@@ -2,7 +2,6 @@
 namespace Fx\UserBundle\EventListener;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -17,14 +16,12 @@ use Fx\UserBundle\Entity\User;
  */
 class RedirectUserListener
 {
-    private $tokenStorage;
+
     private $authChecker;
     private $router;
 
-    public function __construct(TokenStorageInterface $tokenStorage,
-                                AuthorizationCheckerInterface $authChecker, RouterInterface $router)
+    public function __construct(AuthorizationCheckerInterface $authChecker, RouterInterface $router)
     {
-        $this->tokenStorage = $tokenStorage;
         $this->authChecker = $authChecker;
         $this->router = $router;
     }

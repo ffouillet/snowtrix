@@ -29,7 +29,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Le nom de la figure ne doit pas être vide")
      * @Assert\Length(
      *     min=2,
      *     minMessage="Le nom de la figure doit contenir au moins 2 caractères.",
@@ -50,7 +50,7 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="La description de la figure ne doit pas être vide.")
      * @Assert\Length(
      *     min=3,
      *     minMessage="La description de la figure doit contenir au moins 20 caractères.",
@@ -316,6 +316,8 @@ class Trick
     {
         $this->videos[] = $video;
 
+        $this->setUpdatedAt(new \DateTime());
+
         return $this;
     }
 
@@ -327,6 +329,8 @@ class Trick
     public function removeVideo(TrickVideo $video)
     {
         $this->videos->removeElement($video);
+
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -388,6 +392,8 @@ class Trick
 
         $this->photos[] = $photo;
 
+        $this->setUpdatedAt(new \DateTime());
+
         return $this;
     }
 
@@ -400,6 +406,8 @@ class Trick
      */
     public function removePhoto(TrickPhoto $photo)
     {
+        $this->setUpdatedAt(new \DateTime());
+
         return $this->photos->removeElement($photo);
     }
 }
