@@ -14,6 +14,11 @@ services:
         autowire: true
         autoconfigure: true
 
+    CoreBundle\Command\:
+        resource: '../../Command/*'
+        autowire: true
+        autoconfigure: true
+
     corebundle.service.redirect_user_demo_mode:
         class: CoreBundle\Service\RedirectUserDemoMode
         arguments:

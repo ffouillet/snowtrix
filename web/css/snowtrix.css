@@ -608,6 +608,10 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     margin-bottom: 10px;
 }
 
+.snowtrix-login-panel h1 {
+    margin-bottom: 12px;
+}
+
 @media screen and (max-width: 1280px) {
     .snowtrix-solo-wrapper{
         padding-top: 56px;
