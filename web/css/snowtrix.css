@@ -305,7 +305,8 @@ nav#snowtrix-menu a:hover{
     flex-direction: column;
 }
 
-section.trick-photos {
+section.trick-photos,
+section.trick-videos {
     margin-bottom: 15px;
 }
 

@@ -42,7 +42,6 @@ class TrickListener implements EventSubscriber
 
         if ($trick instanceof Trick) {
             $trick->setUpdatedAt(new \DateTime());
-            dump($trick);
         }
 
     }

@@ -316,6 +316,8 @@ class Trick
     {
         $this->videos[] = $video;
 
+        $this->setUpdatedAt(new \DateTime());
+
         return $this;
     }
 
@@ -327,6 +329,8 @@ class Trick
     public function removeVideo(TrickVideo $video)
     {
         $this->videos->removeElement($video);
+
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -388,6 +392,8 @@ class Trick
 
         $this->photos[] = $photo;
 
+        $this->setUpdatedAt(new \DateTime());
+
         return $this;
     }
 
@@ -400,6 +406,8 @@ class Trick
      */
     public function removePhoto(TrickPhoto $photo)
     {
+        $this->setUpdatedAt(new \DateTime());
+
         return $this->photos->removeElement($photo);
     }
 }
