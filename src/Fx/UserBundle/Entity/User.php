@@ -61,7 +61,6 @@ class User implements UserInterface, \Serializable
      */
     private $plainPassword;
 
-
     /**
      * @ORM\Column(type="string", length=64)
      */
@@ -95,9 +94,6 @@ class User implements UserInterface, \Serializable
     private $isActive;
 
     /**
-     * Only used for the FileUpload of the UserEditType
-     * Avatar will always be stored the same way.
-     * Check the method : getAvatarRootPath()
      *
      * @ORM\Column(type="string", length=30, nullable=true)
      *
