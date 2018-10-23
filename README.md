@@ -7,7 +7,9 @@ Created with Symfony 3.4
 ## Installation
 1. Clone (or download) the repository on your local machine. Run this command to clone the repository :  ```git clone https://github.com/ffouillet/snowtrix.git ```
 2. Install project dependencies by running following command in the project directory : ```composer install``` . It will ask you for parameters (which are registered in parameters.yml.dist), leaves at default or set your own.
-3. Create the database and update the database schema by running following command (always in the project directory) : ```php bin/console doctrine:schema:create```
+3. Create the database and update the database schema by running following commands (always in the project directory) :   
+```php bin/console doctrine:database:create```  
+```php bin/console doctrine:schema:create```  
 4. Your project is ready, open your browser and go to the server url pointing to your project.
 
 ## Demo User and Tricks
