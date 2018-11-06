@@ -4,9 +4,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle",
-            "Fx\\" :"src/Fx",
-            "ST\\" :"src/ST",
+            "UserBundle\\": "src/UserBundle",
+            "TricksBundle\\": "src/TricksBundle",
             "CoreBundle\\" :"src/CoreBundle"
 
         },

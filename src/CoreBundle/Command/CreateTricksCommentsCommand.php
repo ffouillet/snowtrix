@@ -3,7 +3,7 @@
 namespace CoreBundle\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
-use ST\TricksBundle\Entity\TrickComment;
+use TricksBundle\Entity\TrickComment;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -32,7 +32,7 @@ class CreateTricksCommentsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $users = $this->em->getRepository('FxUserBundle:User')->findAll();
+        $users = $this->em->getRepository('UserBundle:User')->findAll();
 
         // Remove demo account, he will not post comments.
         foreach($users as $key => $user) {
@@ -43,7 +43,7 @@ class CreateTricksCommentsCommand extends Command
 
         sort($users); // Reorganize array.
 
-        $tricks = $this->em->getRepository('STTricksBundle:Trick')->findAll();
+        $tricks = $this->em->getRepository('TricksBundle:Trick')->findAll();
 
         // 'Default' comments that will be added.
         $commentsListTemplate = ['Wow ! Impressionnant, il doit falloir du temps pour arriver à maîtriser cette figure.',

@@ -3,13 +3,13 @@
 security:
 
     encoders:
-        Fx\UserBundle\Entity\User: bcrypt
+        UserBundle\Entity\User: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         user_db_provider:
             entity:
-                class: FxUserBundle:User
+                class: UserBundle:User
                 property: username
 
     firewalls:

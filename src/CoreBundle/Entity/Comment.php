@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="CoreBundle\Repository\CommentRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({"trick" = "ST\TricksBundle\Entity\TrickComment"})
+ * @ORM\DiscriminatorMap({"trick" = "TricksBundle\Entity\TrickComment"})
  */
 abstract class Comment
 {
@@ -48,7 +48,7 @@ abstract class Comment
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Fx\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -119,11 +119,11 @@ abstract class Comment
     /**
      * Set user
      *
-     * @param \Fx\UserBundle\Entity\User $user
+     * @param \UserBundle\Entity\User $user
      *
      * @return Comment
      */
-    public function setUser(\Fx\UserBundle\Entity\User $user)
+    public function setUser(\UserBundle\Entity\User $user)
     {
         $this->user = $user;
 
@@ -133,7 +133,7 @@ abstract class Comment
     /**
      * Get user
      *
-     * @return \Fx\UserBundle\Entity\User
+     * @return \UserBundle\Entity\User
      */
     public function getUser()
     {
