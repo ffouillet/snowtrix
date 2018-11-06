@@ -32,12 +32,10 @@ class TricksController extends Controller
     /**
      * @Route("/trick/{slug}", name="trick_view")
      */
-    public function viewAction(Request $request, Trick $trick, $commentsPage = 1, CommentFormHandler $commentFormhandler)
+    public function viewAction(Request $request, Trick $trick, CommentFormHandler $commentFormhandler)
     {
-        // commentsPage param could be passed via GET
-        if (null !== $request->query->get('commentsPage') && intval($request->query->get('commentsPage')) > 1) {
-            $commentsPage = $request->query->get('commentsPage');
-        }
+        // Comments are paginated. commentsPage param could be passed via GET
+        $commentsPage = $request->query->getInt('commentsPage', 1);
 
         // Comment add form
         $trickComment = new TrickComment();
