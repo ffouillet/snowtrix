@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Comment
  *
  * @ORM\Table(name="comment")
- * @ORM\Entity(repositoryClass="CoreBundle\Repository\CommentRepository")
+ * @ORM\Entity()
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"trick" = "TricksBundle\Entity\TrickComment"})
