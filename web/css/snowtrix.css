@@ -646,6 +646,16 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     }
 }
 
+@media screen and (max-width: 780px) {
+    #form_deleteTrick {
+        margin: 0px 10px 20px;
+    }
+
+    a.delete-trick-confirmation-link {
+        margin-left: 0px;
+    }
+}
+
 @media screen and (max-width: 736px) {
     footer:before {
         top: -2.5em;
