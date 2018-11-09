@@ -35,6 +35,7 @@
 # PHPUnit
 /app/phpunit.xml
 /phpunit.xml
+/web/code-coverage/*
 
 # Build data
 /build/
