@@ -13,6 +13,8 @@ use UserBundle\Entity\User;
 class TricksControllerTest extends RequiredAuthenticationWebTestCase
 {
 
+    private $temporaryTrickPhoto;
+
     public function setUp(){
         $this->client = static::createClient();
         // Required in order to access application secured areas.
@@ -49,15 +51,19 @@ class TricksControllerTest extends RequiredAuthenticationWebTestCase
         // This field doesn't exists initially here because it is generated via javascript
         $values = $form->getPhpValues();
         // Value required is an embed code.
-        $values['trick']['videos'][0]['video'] = '<iframe width="560" height="315" src="https://www.youtube.com/embed/n0F6hSpxaFc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        $values['trick']['videos'][0]['embedCode'] = '<iframe width="560" height="315" src="https://www.youtube.com/embed/n0F6hSpxaFc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 
-        $trickPhoto = $this->createMock('Symfony\Component\HttpFoundation\File\UploadedFile');
-        $files = ['trick[photos][0][photo]' => $trickPhoto];
+        // Create a photo and use it as a trick photo for the test.
+        $this->temporaryTrickPhoto = tempnam(sys_get_temp_dir(), 'uploaded-func-test-trick-photo'); // Create the file
+        imagejpeg(imagecreatetruecolor(200,200), $this->temporaryTrickPhoto);
+        $trickPhoto = new UploadedFile($this->temporaryTrickPhoto, 'trick-test-photo', 'image/jpeg');
 
+        // Submit the form with values and the trick photo.
         $crawler = $this->client->request($form->getMethod(), $form->getUri(), $values,
-            $files);
+            ['trick[photos][0][photo]' => $trickPhoto]);
 
         dump($crawler);
+        dump($this->client->getResponse()->getStatusCode());
 
         //$trickTestPhoto = array('tmp_name' => '/path/to/photo.jpg', 'name' => 'photo.jpg', 'type' => 'image/jpeg', 'size' => 123, 'error' => UPLOAD_ERR_OK);
         //$form['trick[photos][1][photo]'] = $trickTestPhoto['tmp_name'];
@@ -67,7 +73,15 @@ class TricksControllerTest extends RequiredAuthenticationWebTestCase
         // Uncomplete, have to create the form completion and submission process.
     }
 
+    public function tearDown()
+    {
+        parent::tearDown();
 
+        if(file_exists($this->temporaryTrickPhoto)) {
+            unlink($this->temporaryTrickPhoto);
+        }
+
+    }
 
 
 }
