@@ -8,10 +8,10 @@ use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
 /**
- * LoggedInWebTestCase allows to simulate an user authentication so that the client
+ * RequiredAuthenticationWebTestCase allows to simulate an user authentication so that the client
  * can access application's secured areas (depending on the user role).
  */
-abstract class LoggedInWebTestCase extends WebTestCase
+abstract class RequiredAuthenticationWebTestCase extends WebTestCase
 {
     protected $client;
 
