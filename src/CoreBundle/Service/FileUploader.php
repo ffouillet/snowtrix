@@ -40,10 +40,6 @@ class FileUploader
         return $fileName;
     }
 
-    public function getGeneratedFileName(){
-        return $this->fileName;
-    }
-
     public function getTargetDirectory()
     {
         return $this->targetDirectory;
