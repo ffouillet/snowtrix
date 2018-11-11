@@ -133,10 +133,12 @@ class TricksControllerTest extends RequiredAuthenticationWebTestCase
 
     public function testTrickDelete() {
 
-        $trickSlug = 'functional-trick-edited-test';
+        $trickSlug = 'functional-test-trick-edited';
         $url = '/delete-trick/'.$trickSlug;
 
         $crawler = $this->client->request(Request::METHOD_GET, $url);
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         // Get the delete form button.
         $formButtonCrawlerNode = $crawler->selectButton('form_deleteTrick');
@@ -149,8 +151,6 @@ class TricksControllerTest extends RequiredAuthenticationWebTestCase
         $this->assertSame(302, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
-
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $this->assertGreaterThan(0, $crawler->filter('h2:contains("SnowTrix")')->count());
 
