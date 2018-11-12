@@ -1,14 +1,9 @@
 <?php
 namespace Tests\TricksBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 use Tests\RequiredAuthenticationWebTestCase;
-use UserBundle\Entity\User;
 
 class TricksControllerTest extends RequiredAuthenticationWebTestCase
 {
@@ -118,8 +113,6 @@ class TricksControllerTest extends RequiredAuthenticationWebTestCase
         $crawler = $this->client->request(Request::METHOD_GET, '/trick/functional-test-trick-edited');
 
         // Check if edited values are correct.
-
-        dump($form->get('trick_edit[description]')->getValue());
 
         $this->assertSame(1, $crawler->filter('html:contains("'.$form->get('trick_edit[name]')->getValue().'")')->count());
         $this->assertSame(1, $crawler->filter('html:contains("'.$form->get('trick_edit[description]')->getValue().'")')->count());
