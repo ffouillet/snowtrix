@@ -1,4 +1,5 @@
 # SnowTrix
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/15b979478e99404a81e2ce07ffa4e565)](https://www.codacy.com/app/ffouillet/snowtrix?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ffouillet/snowtrix&amp;utm_campaign=Badge_Grade)  
 
 Communautary snowboard tricks website  
 Created with Symfony 3.4  
