@@ -22,7 +22,7 @@ class TricksControllerTest extends RequiredAuthenticationWebTestCase
         $trickSlug = "50-50";
         $url = '/trick/'.$trickSlug;
 
-        $crawler = $this->client->request(Request::METHOD_GET, $url);
+        $this->client->request(Request::METHOD_GET, $url);
 
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
 
