@@ -23,14 +23,13 @@ class FileUploader
             $targetDir = $this->getTargetDirectory();
 
             // Move the file to a subfolder if required.
-            if (null != $subFolderName) {
+            if (null !== $subFolderName) {
                 if($subFolderName == "") {
                     throw new \InvalidArgumentException("The subfolderpath cannot be empty.");
                 } else {
                     $targetDir .= '/'.$subFolderName.'/';
                 }
             }
-
             $file->move($targetDir, $fileName);
 
         } catch (FileException $e) {
