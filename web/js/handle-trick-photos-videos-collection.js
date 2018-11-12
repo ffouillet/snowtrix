@@ -1,10 +1,10 @@
 jQuery(document).ready(function() {
 
     function validateTrickPhotoFileExtension($photoFile) {
-        var acceptedFileTypes = ['jpg','jpeg','png'];
-        var successOrError = {'success' : false, 'errorMessage' : ''};
+        var acceptedFileTypes = ["jpg","jpeg","png"];
+        var successOrError = {"success" : false, "errorMessage" : ""};
 
-        var fileExtension = $photoFile.name.split('.').pop().toLowerCase();
+        var fileExtension = $photoFile.name.split(".").pop().toLowerCase();
 
         // Check file extension
         if(acceptedFileTypes.indexOf(fileExtension) < 0) {
@@ -18,9 +18,9 @@ jQuery(document).ready(function() {
     }
 
     function validateTrickPhotoSize($trickPhoto){
-        var requiredSize = {'minWidth' : 150, 'maxWidth' : 1920, 'minHeight' : 150, 'maxHeight' : 1080 };
+        var requiredSize = {"minWidth" : 150, "maxWidth" : 1920, "minHeight" : 150, "maxHeight" : 1080 };
 
-        var successOrError = {'success' : false, 'errorMessage' :''}
+        var successOrError = {"success" : false, "errorMessage" :""};
 
         if($trickPhoto.width < requiredSize.minWidth) {
             successOrError.errorMessage =
@@ -49,9 +49,9 @@ jQuery(document).ready(function() {
         // Check if image extension is valid.
         var imageExtensionValid = validateTrickPhotoFileExtension($photoFile);
 
-        if(imageExtensionValid.success == false) {
+        if(imageExtensionValid.success === false) {
             alert(imageExtensionValid.errorMessage);
-            $input.val('');
+            $input.val("");
             return;
         }
 
@@ -68,15 +68,15 @@ jQuery(document).ready(function() {
 
                     var $trickPhotoSizeValid = validateTrickPhotoSize(trickPhoto);
 
-                    if($trickPhotoSizeValid.success == false) {
+                    if($trickPhotoSizeValid.success === false) {
                         alert($trickPhotoSizeValid.errorMessage);
                         $input.val('');
                         return;
                     } else {
-                        $previewImg = $($currentLiItem).find('img');
+                        var $previewImg = $($currentLiItem).find('img');
 
                         // Add the img tag if not existing
-                        if($previewImg.length == 0) {
+                        if($previewImg.length === 0) {
                             $input.before('<img width="200" maxHeight="100" src="#" class="trickPhotoPreview"/>');
                             $previewImg = $($currentLiItem).find('img');
                         }
@@ -85,47 +85,9 @@ jQuery(document).ready(function() {
 
                     }
                 };
-            }
+            };
 
             reader.readAsDataURL($photoFile);
-        }
-    }
-
-    function addAddElementButtonToCollection($collectionHolder, $newLinkLi) {
-        // Get the data-prototype explained earlier
-        var prototype = $collectionHolder.data('prototype');
-
-        // get the new index
-        var index = $collectionHolder.data('index');
-
-        var newForm = prototype;
-        // You need this only if you didn't set 'label' => false in your tags field in TaskType
-        // Replace '__name__label__' in the prototype's HTML to
-        // instead be a number based on how many items we have
-        // newForm = newForm.replace(/__name__label__/g, index);
-
-        // Replace '__name__' in the prototype's HTML to
-        // instead be a number based on how many items we have
-        newForm = newForm.replace(/__name__/g, index);
-
-        // increase the index with one for the next item
-        $collectionHolder.data('index', index + 1);
-
-        // Display the form in the page in an li, before the "Add a tag" link li
-        var newLinkLiClass = $($collectionHolder).attr('id') + '-form-element';
-
-        var $newFormLi = $('<li class="'+newLinkLiClass+'"></li>').append(newForm);
-        $newLinkLi.before($newFormLi);
-
-        addRemoveButtonToCollectionElement($newFormLi);
-
-        // In case of we are adding photos, user need to preview the picture.
-        if ($collectionHolder.attr('id') == "trick-photos") {
-            $photoFileInput = $($newFormLi).find('input');
-
-            $photoFileInput.on('change', function(){
-                showPhotoThumbForPreview($(this));
-            });
         }
     }
 
@@ -156,11 +118,51 @@ jQuery(document).ready(function() {
         });
     }
 
+    function addAddElementButtonToCollection($collectionHolder, $newLinkLi) {
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data("prototype");
+
+        // get the new index
+        var index = $collectionHolder.data("index");
+
+        var newForm = prototype;
+        // You need this only if you didn't set 'label' => false in your tags field in TaskType
+        // Replace '__name__label__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        // newForm = newForm.replace(/__name__label__/g, index);
+
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        newForm = newForm.replace(/__name__/g, index);
+
+        // increase the index with one for the next item
+        $collectionHolder.data("index", index + 1);
+
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var newLinkLiClass = $($collectionHolder).attr("id") + "-form-element";
+
+        var $newFormLi = $('<li class="'+newLinkLiClass+'"></li>').append(newForm);
+        $newLinkLi.before($newFormLi);
+
+        addRemoveButtonToCollectionElement($newFormLi);
+
+        // In case of we are adding photos, user need to preview the picture.
+        if ($collectionHolder.attr('id') === "trick-photos") {
+            var $photoFileInput = $($newFormLi).find("input");
+
+            $photoFileInput.on('change', function(){
+                showPhotoThumbForPreview($(this));
+            });
+        }
+    }
+
     // Find each .trick-relation-collection and add them a "Add item" and "Remove Item" button.
     $('ul.trick-relation-collection').each(function(index){
 
         var $collectionHolder = $(this);
         var $collectionHolderId = $(this).attr('id');
+        var $addElementButtonText = "";
+        var $removeElementButtonText = "";
 
         // Define text for add and remove elements buttons.
         switch($(this).attr('id')) {
@@ -187,7 +189,7 @@ jQuery(document).ready(function() {
         // add a delete link to all of the existing tag form li elements
         $collectionHolder.find('li:not(.add-'+$collectionHolderId+')').each(function() {
             // Do not add delete button to form errors.
-            if($(this).parent().parent().parent().attr('class') != 'form-error') {
+            if($(this).parent().parent().parent().attr('class') !== "form-error") {
                 addRemoveButtonToCollectionElement($(this));
             }
         });
