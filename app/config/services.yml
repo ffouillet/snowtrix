@@ -35,4 +35,4 @@ services:
     #         $someArgument: 'some_value'
 
 imports:
-- { resource: "@FxUserBundle/Resources/config/services.yml"}
+- { resource: "@UserBundle/Resources/config/services.yml"}

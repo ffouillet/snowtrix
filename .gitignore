@@ -35,6 +35,10 @@
 # PHPUnit
 /app/phpunit.xml
 /phpunit.xml
+/web/code-coverage/*
+
+# Tests
+/app/sqlite.db.cache
 
 # Build data
 /build/

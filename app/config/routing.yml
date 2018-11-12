@@ -1,9 +1,9 @@
 snowtrix_tricksgroups:
-    resource: "@STTricksBundle/Controller/TricksGroupsController.php"
+    resource: "@TricksBundle/Controller/TricksGroupsController.php"
     type:     annotation
 
 snowtrix_tricks:
-    resource: "@STTricksBundle/Controller/TricksController.php"
+    resource: "@TricksBundle/Controller/TricksController.php"
     type:     annotation
 
 demo:
@@ -11,5 +11,5 @@ demo:
     type:     annotation
 
 security:
-  resource: "@FxUserBundle/Controller/SecurityController.php"
+  resource: "@UserBundle/Controller/SecurityController.php"
   type:     annotation

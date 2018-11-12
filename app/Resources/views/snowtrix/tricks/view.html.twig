@@ -3,14 +3,13 @@
 {% block body %}
     <section class="wrapper spotlight style2 snowtrix-solo-wrapper trick-details-wrapper">
         <div class="inner snowtrix-fx-style">
-            <div class="snowtrix-fx-panel">
+            <div class="snowtrix-fx-panel trick-details-panel">
                 {% for message in app.flashes('addComment') %}
                     <div class="alert alert-notice">
                         {{ message }}
                     </div>
                 {% endfor %}
 
-                <h1 class="trick-name">Figure : {{ trick.name }}</h1>
                 {% if is_granted('ROLE_USER') %}
                     <div class="trick-actions-helper">
                         <span class="trick-actions" id="trick-actions-view-trick">
@@ -19,6 +18,16 @@
                     </span>
                     </div>
                 {% endif %}
+
+                {# Trick Name #}
+                <h1 class="trick-name">Figure : {{ trick.name }}</h1>
+
+                {# Description #}
+                <div class="trick-description">
+                    {{ trick.description }}
+                </div>
+
+
 
                 {# Photos #}
                 <section class="trick-photos">
