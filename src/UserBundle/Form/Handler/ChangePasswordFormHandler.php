@@ -34,7 +34,6 @@ class ChangePasswordFormHandler extends FormHandler {
 
         // Fetching new password datas from request.
         $newPassword = $request->request->get('change_password')['plainPassword']['first'];
-        $newPasswordConfirmation = $request->request->get('change_password')['plainPassword']['second'];
 
         // validate newPlainPassword with User's plainPassword constraints.
         $userPlainPasswordConstraints = $classMetadata->getPropertyMetadata('plainPassword')[0]->getConstraints();
