@@ -70,18 +70,18 @@ jQuery(document).ready(function() {
 
                     if($trickPhotoSizeValid.success === false) {
                         alert($trickPhotoSizeValid.errorMessage);
-                        $input.val('');
+                        $input.val("");
                         return;
                     } else {
-                        var $previewImg = $($currentLiItem).find('img');
+                        var $previewImg = $($currentLiItem).find("img");
 
                         // Add the img tag if not existing
                         if($previewImg.length === 0) {
                             $input.before('<img width="200" maxHeight="100" src="#" class="trickPhotoPreview"/>');
-                            $previewImg = $($currentLiItem).find('img');
+                            $previewImg = $($currentLiItem).find("img");
                         }
 
-                        $($previewImg).attr('src', e.target.result);
+                        $($previewImg).attr("src", e.target.result);
 
                     }
                 };
@@ -93,18 +93,18 @@ jQuery(document).ready(function() {
 
     function addRemoveButtonToCollectionElement($tagFormLi) {
 
-        var $collectionHolder = $tagFormLi.parent().attr('id');
-        var $removeElementButtonText = '';
+        var $collectionHolder = $tagFormLi.parent().attr("id");
+        var $removeElementButtonText = "";
 
         switch($collectionHolder) {
-            case 'trick-photos':
-                $removeElementButtonText = 'Supprimer cette photo';
+            case "trick-photos":
+                $removeElementButtonText = "Supprimer cette photo";
                 break;
-            case 'trick-videos':
-                $removeElementButtonText = 'Supprimer cette video';
+            case "trick-videos":
+                $removeElementButtonText = "Supprimer cette video";
                 break;
             default :
-                console.log('Unable to find collectionHolder for removeElementButtonText definition');
+                console.log("Unable to find collectionHolder for removeElementButtonText definition");
         }
 
         var $removeFormButtonHtml = '<button type="button" class="remove-element-button"><i class="fa fa-trash"></i>'+$removeElementButtonText+'</button>';
@@ -112,7 +112,7 @@ jQuery(document).ready(function() {
 
         $tagFormLi.append($removeFormButton);
 
-        $removeFormButton.on('click', function(e) {
+        $removeFormButton.on("click", function(e) {
             // remove the li for the tag form
             $tagFormLi.remove();
         });
@@ -147,35 +147,35 @@ jQuery(document).ready(function() {
         addRemoveButtonToCollectionElement($newFormLi);
 
         // In case of we are adding photos, user need to preview the picture.
-        if ($collectionHolder.attr('id') === "trick-photos") {
+        if ($collectionHolder.attr("id") === "trick-photos") {
             var $photoFileInput = $($newFormLi).find("input");
 
-            $photoFileInput.on('change', function(){
+            $photoFileInput.on("change", function(){
                 showPhotoThumbForPreview($(this));
             });
         }
     }
 
     // Find each .trick-relation-collection and add them a "Add item" and "Remove Item" button.
-    $('ul.trick-relation-collection').each(function(index){
+    $("ul.trick-relation-collection").each(function(index){
 
         var $collectionHolder = $(this);
-        var $collectionHolderId = $(this).attr('id');
+        var $collectionHolderId = $(this).attr("id");
         var $addElementButtonText = "";
         var $removeElementButtonText = "";
 
         // Define text for add and remove elements buttons.
-        switch($(this).attr('id')) {
-            case 'trick-photos' :
+        switch($(this).attr("id")) {
+            case "trick-photos" :
                 $addElementButtonText = "Ajouter une photo";
                 $removeElementButtonText = "Supprimer cette photo";
                 break;
-            case 'trick-videos' :
+            case "trick-videos" :
                 $addElementButtonText = "Ajouter une video";
                 $removeElementButtonText = "Supprimer cette video";
                 break;
             default :
-                console.log('Unable to find the collection holder identifier.');
+                console.log("Unable to find the collection holder identifier.");
         }
 
         var $addElementButtonHtml = '<button type="button" class="add_'+$collectionHolderId+'_link"><i class="fa fa-plus-circle" aria-hidden="true"></i>'+$addElementButtonText+'</button>';
@@ -187,29 +187,29 @@ jQuery(document).ready(function() {
         $collectionHolder.append($newElementLinkLi);
 
         // add a delete link to all of the existing tag form li elements
-        $collectionHolder.find('li:not(.add-'+$collectionHolderId+')').each(function() {
+        $collectionHolder.find("li:not(.add-"+$collectionHolderId+")").each(function() {
             // Do not add delete button to form errors.
-            if($(this).parent().parent().parent().attr('class') !== "form-error") {
+            if($(this).parent().parent().parent().attr("class") !== "form-error") {
                 addRemoveButtonToCollectionElement($(this));
             }
         });
 
         // count the current form inputs we have (e.g. 2), use that as the new
         // index when inserting a new item (e.g. 2)
-        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+        $collectionHolder.data("index", $collectionHolder.find(":input").length);
 
-        $addElementButton.on('click', function(e) {
+        $addElementButton.on("click", function(e) {
             // add a new tag form (see next code block)
             addAddElementButtonToCollection($collectionHolder, $newElementLinkLi);
         });
 
         // Add possibility for exising trick photos input to have photo change if required
         // In case of we are adding photos, user need to preview the picture.
-        if ($collectionHolder.attr('id') == "trick-photos") {
-            $photoFileInputs = $($collectionHolder).find('input');
+        if ($collectionHolder.attr("id") === "trick-photos") {
+            var $photoFileInputs = $($collectionHolder).find("input");
 
             $photoFileInputs.each(function(){
-                $(this).on('change', function(){
+                $(this).on("change", function(){
                     showPhotoThumbForPreview($(this));
                 });
             });
