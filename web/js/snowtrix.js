@@ -7,7 +7,7 @@ $(document).ready(function(){
         var menuMobileId = "menu";
 
         if($(window).width() > 768) {
-            if($(menu).attr('id') != menuDesktopId) {
+            if($(menu).attr('id') !== menuDesktopId) {
                 $('nav#enable-nav').hide(); // Hide link to show default menu
                 $(menu).show();
                 $(menu).appendTo('header'); // Add menu into header
@@ -16,7 +16,7 @@ $(document).ready(function(){
             }
         }
         else {
-            if($(menu).attr('id') != menuMobileId) {
+            if($(menu).attr('id') !== menuMobileId) {
                 $('nav#enable-nav').show(); // Hide link to show default menu
                 $(menu).appendTo('body'); // Add menu into header
                 $(menu).attr('id',menuMobileId); // Change menu id so that it does not default menu css rules
