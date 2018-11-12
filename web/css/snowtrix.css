@@ -569,12 +569,9 @@ form[name=user_profile_edit] #edit-profile-submit-button {
     margin-top: 10px;
     display: inline-block;
     border-radius: 5px;
-    padding-left : 15px;
-    padding-right: 15px;
     font-weight: bold;
     line-height: 30px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: 15px;
 }
 
 .flash-notice i {
