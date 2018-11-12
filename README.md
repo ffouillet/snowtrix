@@ -25,3 +25,10 @@ Demo parameters are :
 *  demo_mode_enabled (false/true)
 *  demo_mode_disabled_actions (array of actions that cannot be done when demo mode is enabled with associated method (GET, POST, etc.. or ANY))
 *  demo_mode_disabled_actions_route_to_redirect_to (route name where user will be redirected to if he tries to run a forbidden action by the demo mode)
+
+## Unit and functional tests
+Run unit and functional tests by executing following commands at the project root :  
+``` php bin/console doctrine:schema:create --env=test``` (Create test environment DB)  
+``` php bin/console doctrine:schema:update --env=test```  
+``` php bin/console doctrine:fixtures:load --env=test```  
+``` ./vendor/bin/simple-phpunit ```
