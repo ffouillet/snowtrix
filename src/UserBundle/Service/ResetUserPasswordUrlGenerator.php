@@ -11,10 +11,6 @@ class ResetUserPasswordUrlGenerator {
     const RESET_PASSWORD_ROUTE = 'fx_reset_password';
 
     private $router;
-    /**
-     * @var Request
-     */
-    private $request;
 
     public function __construct(UrlGeneratorInterface $router){
 

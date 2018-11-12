@@ -43,7 +43,7 @@ class TrickAndTrickGroupFixtures extends Fixture
         // Creating tricks
         foreach($tricksData as $trickGroupName => $tricksDataByGroup) {
 
-            foreach($tricksDataByGroup as $key => $tricksDatas) {
+            foreach($tricksDataByGroup as $tricksDatas) {
                 $trick = new Trick();
                 $trick->addGroup($trickGroup[$trickGroupName]);
                 $trick->setName($tricksDatas[0]);

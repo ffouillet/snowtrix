@@ -13,10 +13,6 @@ class CreateTricksCommentsCommand extends Command
 {
 
     private $em;
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder; // Doctrine EntityManager
 
     public function __construct(EntityManagerInterface $entityManager)
     {

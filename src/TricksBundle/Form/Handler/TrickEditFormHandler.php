@@ -86,10 +86,10 @@ class TrickEditFormHandler extends FormHandler
                  * Like that, Doctrine won't see an update and won't throw an error indicating that a new relation has been found.
                  */
                 if(!$originalPhoto->getPhoto() instanceof UploadedFile && $originalPhoto->getPhotoUrl() != '') {
-                    foreach($currentTrick->getPhotos() as $photoKey => $photoValue) {
-                        if($photoValue->getId() == $originalPhoto->getId()) {
+                    foreach($currentTrick->getPhotos() as $photo) {
+                        if($photo->getId() == $originalPhoto->getId()) {
                             // Simply refresh the entity from DB.
-                            $this->em->refresh($photoValue);
+                            $this->em->refresh($photo);
                         }
                     }
                 }
